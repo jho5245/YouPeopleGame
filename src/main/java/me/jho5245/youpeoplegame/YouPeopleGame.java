@@ -5,13 +5,16 @@ import io.papermc.paper.plugin.configuration.PluginMeta;
 import me.jho5245.youpeoplegame.listener.*;
 import me.jho5245.youpeoplegame.service.CookieGivewayEvery5Seconds;
 import me.jho5245.youpeoplegame.service.Service;
+import me.jho5245.youpeoplegame.util.TestCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 public class YouPeopleGame extends JavaPlugin
 {
@@ -50,18 +53,40 @@ public class YouPeopleGame extends JavaPlugin
 		pluginManager = Bukkit.getPluginManager();
 		services = new ArrayList<>();
 		registerEvents();
+		PluginCommand pluginCommand = this.getCommand("testcommand2");
+		TestCommand testCommand = new TestCommand();
+		pluginCommand.setExecutor(testCommand);
+		pluginCommand.setTabCompleter(testCommand);
 		registerService();
 	}
 
+	private static final Set<Class<? extends Listener>> events = new HashSet<>(Arrays.asList(
+			CraftItem.class,
+			CustomBlockBreak.class,
+			InventoryOpen.class,
+			OpenWindowMerchant.class,
+			PlayerItemConsume.class,
+			PlayerItemDamage.class,
+			PlayerCustomMiningItemDamage.class,
+			PlayerJoin.class,
+			PrepareResult.class,
+			SetCursorItem.class,
+			SetSlot.class,
+			WindowItems.class
+	));
+
 	private void registerEvents()
 	{
-		pluginManager.registerEvents(new CraftItem(), this);
-		pluginManager.registerEvents(new CustomBlockBreak(), this);
-		pluginManager.registerEvents(new InventoryOpen(), this);
-		pluginManager.registerEvents(new PlayerItemDamage(), this);
-		pluginManager.registerEvents(new PlayerCustomMiningItemDamage(), this);
-		pluginManager.registerEvents(new PlayerJoin(), this);
-		pluginManager.registerEvents(new PrepareResult(), this);
+		events.forEach(event -> {
+			try
+			{
+				pluginManager.registerEvents((Listener) event.getConstructors()[0].newInstance(), this);
+			}
+			catch (InstantiationException | InvocationTargetException | IllegalAccessException e)
+			{
+				throw new RuntimeException(e);
+			}
+		});
 	}
 
 	private void registerService()
@@ -75,5 +100,22 @@ public class YouPeopleGame extends JavaPlugin
 	public void onDisable()
 	{
 		MessageUtil.consoleSendMessage("%s v.%s has been disabled!", pluginName, pluginVersion);
+	}
+
+	public enum YouPeopleGameUserData
+	{
+		DAMP_COOKIE_POTION_USED("눅눅한-쿠키-포션-사용-여부")
+		;
+		final String key;
+
+		YouPeopleGameUserData(String key)
+		{
+			this.key = key;
+		}
+
+		public String toString()
+		{
+			return "custom-data.YouPeopleGame." + key;
+		}
 	}
 }

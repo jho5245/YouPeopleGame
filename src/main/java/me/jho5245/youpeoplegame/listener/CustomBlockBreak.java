@@ -19,17 +19,17 @@ public class CustomBlockBreak implements Listener
 	{
 		List<Pair<Material, Double>> oreChance = new ArrayList<>();
 		oreChance.add(Pair.of(Material.STONE, 100d));
-		oreChance.add(Pair.of(Material.COAL_ORE, 75d));
-		oreChance.add(Pair.of(Material.COPPER_ORE, 66d));
-		oreChance.add(Pair.of(Material.IRON_ORE, 50d));
-		oreChance.add(Pair.of(Material.GOLD_ORE, 33d));
-		oreChance.add(Pair.of(Material.REDSTONE_ORE, 25d));
-		oreChance.add(Pair.of(Material.LAPIS_ORE, 25d));
-		oreChance.add(Pair.of(Material.NETHER_QUARTZ_ORE, 25d));
-		oreChance.add(Pair.of(Material.DIAMOND_ORE, 10d));
-		oreChance.add(Pair.of(Material.EMERALD_ORE, 5d));
-		oreChance.add(Pair.of(Material.AMETHYST_CLUSTER, 1d));
-		oreChance.add(Pair.of(Material.ANCIENT_DEBRIS, 0.1d));
+		oreChance.add(Pair.of(Material.COAL_ORE, 25d));
+		oreChance.add(Pair.of(Material.COPPER_ORE, 16d));
+		oreChance.add(Pair.of(Material.IRON_ORE, 10d));
+		oreChance.add(Pair.of(Material.GOLD_ORE, 8d));
+		oreChance.add(Pair.of(Material.REDSTONE_ORE, 5d));
+		oreChance.add(Pair.of(Material.LAPIS_ORE, 5d));
+		oreChance.add(Pair.of(Material.NETHER_QUARTZ_ORE, 5d));
+		oreChance.add(Pair.of(Material.DIAMOND_ORE, 1d));
+		oreChance.add(Pair.of(Material.EMERALD_ORE, 0.5d));
+		oreChance.add(Pair.of(Material.AMETHYST_CLUSTER, 0.1d));
+		oreChance.add(Pair.of(Material.ANCIENT_DEBRIS, 0.01d));
 
 		// 가중치를 백분율로 치환
 		double sum = oreChance.stream().mapToDouble(Pair::getRight).sum();

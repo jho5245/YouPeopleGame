@@ -13,6 +13,10 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
+        <repository>
+            <id>shopkeepers-repo</id>
+            <url>https://raw.githubusercontent.com/Shopkeepers/Repository/main/releases/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -29,6 +33,12 @@
             <version>1.0-SNAPSHOT</version>
             <scope>system</scope>
             <systemPath>G:\minecraft plugins\Cucumbery.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.nisovin.shopkeepers</groupId>
+            <artifactId>ShopkeepersAPI</artifactId>
+            <version>2.23.10</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -54,7 +64,7 @@
                             </mainClass>
                         </manifest>
                     </archive>
-                    <outputDirectory>G:\느아아ㅏㅏ아아ㅏ앙ㄺ\게임\마인크래프트\기타 자료\서버\페이퍼 1.21.8 놀이터\plugins</outputDirectory>
+                    <outputDirectory>G:\minecraft plugins</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>

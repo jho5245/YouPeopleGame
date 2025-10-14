@@ -3,8 +3,10 @@ package me.jho5245.youpeoplegame.service;
 import com.jho5245.cucumbery.util.additemmanager.AddItemUtil;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
+import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
 import me.jho5245.youpeoplegame.YouPeopleGame;
+import me.jho5245.youpeoplegame.YouPeopleGame.YouPeopleGameUserData;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -39,6 +41,13 @@ public class CookieGivewayEvery5Seconds extends Service
 				if (ItemStackUtil.countSpace(inventory, cookie) > 0)
 				{
 					AddItemUtil.addItem(player, cookie);
+					MessageUtil.sendActionBar(player, "&a쿠키 얻었다");
+					// 25% 확률로 쿠키를 하나 더 얻는 기능
+					if (UserData.getBoolean(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_USED.toString()) && Math.random() >= 0.75)
+					{
+						AddItemUtil.addItem(player, cookie);
+						MessageUtil.sendActionBar(player, "&a쿠키 하나 더 얻었다 개이득");
+					}
 				}
 				// 인벤토리 꽉 참
 				else
