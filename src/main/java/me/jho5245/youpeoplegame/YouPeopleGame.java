@@ -1,6 +1,7 @@
 package me.jho5245.youpeoplegame;
 
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
+import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import io.papermc.paper.plugin.configuration.PluginMeta;
 import me.jho5245.youpeoplegame.listener.*;
 import me.jho5245.youpeoplegame.service.CookieGivewayEvery5Seconds;
@@ -115,7 +116,7 @@ public class YouPeopleGame extends JavaPlugin
 
 		public String toString()
 		{
-			return "custom-data.YouPeopleGame." + key;
+			return UserData.CUSTOM_DATA.getKey() + ".YouPeopleGame." + key;
 		}
 	}
 }
