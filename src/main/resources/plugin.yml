@@ -1,0 +1,7 @@
+name: YouPeopleGame
+version: 0.1-alpha
+main: me.jho5245.youpeoplegame.YouPeopleGame
+api-version: 1.21
+author: jho5245
+description: YouPeopleGame OMG WHAT?!
+depend: [Cucumbery]
