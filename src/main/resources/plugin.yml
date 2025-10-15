@@ -8,3 +8,4 @@ depend: [Cucumbery]
 
 commands:
   testcommand2:
+    usage: 테스트 명령어

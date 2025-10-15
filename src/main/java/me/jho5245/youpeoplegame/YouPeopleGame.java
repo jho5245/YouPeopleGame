@@ -4,7 +4,7 @@ import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import io.papermc.paper.plugin.configuration.PluginMeta;
 import me.jho5245.youpeoplegame.listener.*;
-import me.jho5245.youpeoplegame.service.CookieGivewayEvery5Seconds;
+import me.jho5245.youpeoplegame.service.CookieGivewayEveryNSeconds;
 import me.jho5245.youpeoplegame.service.Service;
 import me.jho5245.youpeoplegame.util.TestCommand;
 import org.bukkit.Bukkit;
@@ -65,6 +65,7 @@ public class YouPeopleGame extends JavaPlugin
 			CraftItem.class,
 			CustomBlockBreak.class,
 			InventoryOpen.class,
+			ItemLore3.class,
 			OpenWindowMerchant.class,
 			PlayerItemConsume.class,
 			PlayerItemDamage.class,
@@ -92,7 +93,7 @@ public class YouPeopleGame extends JavaPlugin
 
 	private void registerService()
 	{
-		services.add(new CookieGivewayEvery5Seconds());
+		services.add(new CookieGivewayEveryNSeconds());
 
 		services.forEach(Service::run);
 	}
@@ -105,7 +106,8 @@ public class YouPeopleGame extends JavaPlugin
 
 	public enum YouPeopleGameUserData
 	{
-		DAMP_COOKIE_POTION_USED("눅눅한-쿠키-포션-사용-여부")
+		DAMP_COOKIE_POTION_USED("눅눅한-쿠키-포션-사용-여부"),
+		MOIST_COOKIE_BOOSTER_USED("촉촉한-쿠키-촉진제-사용-여부"),
 		;
 		final String key;
 
@@ -115,6 +117,11 @@ public class YouPeopleGame extends JavaPlugin
 		}
 
 		public String toString()
+		{
+			return UserData.CUSTOM_DATA.getKey() + ".YouPeopleGame." + key;
+		}
+
+		public static String customKey(String key)
 		{
 			return UserData.CUSTOM_DATA.getKey() + ".YouPeopleGame." + key;
 		}
