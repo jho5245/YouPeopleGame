@@ -12,7 +12,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.yaml.snakeyaml.Yaml;
 
 import java.util.function.Predicate;
 
@@ -32,7 +31,8 @@ public class CookieGivewayEveryNSeconds extends Service
 			int blockX = location.getBlockX(), blockY = location.getBlockY(), blockZ = location.getBlockZ();
 			return blockX <= 1 && blockX >= -1 && blockY == 64 && blockZ <= 1 && blockZ >= -1;
 		};
-		filterBoosterUsed = player -> UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_USED.toString());
+		filterBoosterUsed = player ->
+				UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_UNLOCKED) && UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_USE);
 	}
 
 	public void run()
@@ -62,7 +62,8 @@ public class CookieGivewayEveryNSeconds extends Service
 			AddItemUtil.addItem(player, cookie);
 			MessageUtil.sendActionBar(player, "&a쿠키 얻었다");
 			// 25% 확률로 쿠키를 하나 더 얻는 기능
-			if (UserData.getBoolean(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_USED.toString()) && Math.random() >= 0.75)
+			if (UserData.getBoolean(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_UNLOCKED) && UserData.getBoolean(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_USE)
+					&& Math.random() >= 0.75)
 			{
 				AddItemUtil.addItem(player, cookie);
 				MessageUtil.sendActionBar(player, "&a쿠키 하나 더 얻었다 개이득");

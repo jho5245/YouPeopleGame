@@ -1,14 +1,9 @@
 package me.jho5245.youpeoplegame.listener;
 
-import com.google.errorprone.annotations.Var;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
 import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
-import com.jho5245.cucumbery.util.storage.data.Variable;
-import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
-import com.nisovin.shopkeepers.api.user.User;
-import me.jho5245.youpeoplegame.YouPeopleGame;
 import me.jho5245.youpeoplegame.YouPeopleGame.YouPeopleGameUserData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
@@ -29,39 +24,35 @@ public class PlayerItemConsume implements Listener
 		CustomMaterial customMaterial = CustomMaterial.itemStackOf(item);
 		switch (customMaterial)
 		{
-			case YOUPEOPLEGAME_DAMP_COOKIE_POTION -> {
-				if (UserData.getBoolean(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_USED.toString()))
+			case YOUPEOPLEGAME_DAMP_COOKIE_POTION ->
+			{
+				if (UserData.getBoolean(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_UNLOCKED))
 				{
 					event.setCancelled(true);
 					MessageUtil.sendWarn(player, "이미 사용한 아이템입니다.");
 					return;
 				}
-				UserData.setToggle(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_USED.toString());
+				UserData.setToggle(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_UNLOCKED);
+				UserData.setToggle(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_USE);
 				player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
-				player.showTitle(
-						Title.title(
-								Component.empty(),
-								ComponentUtil.translate("&e눅눅한 쿠키 포션의 버프가 해금되었습니다!"),
-								60, 60, 60
-						));
+				player.showTitle(Title.title(Component.empty(), ComponentUtil.translate("&e눅눅한 쿠키 포션의 버프가 해금되었습니다!"), 60, 60, 60));
 			}
-			case YOUPEOPLEGAME_MOIST_COOKIE_BOOSTER -> {
-				if (UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_USED.toString()))
+			case YOUPEOPLEGAME_MOIST_COOKIE_BOOSTER ->
+			{
+				if (UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_UNLOCKED))
 				{
 					event.setCancelled(true);
 					MessageUtil.sendWarn(player, "이미 사용한 아이템입니다.");
 					return;
 				}
-				UserData.setToggle(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_USED.toString());
+				UserData.setToggle(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_UNLOCKED);
+				UserData.setToggle(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_USE);
 				player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
-				player.showTitle(
-						Title.title(
-								Component.empty(),
-								ComponentUtil.translate("&e촉촉한 쿠키 촉진제의 버프가 해금되었습니다!"),
-								60, 60, 60
-						));
+				player.showTitle(Title.title(Component.empty(), ComponentUtil.translate("&e촉촉한 쿠키 촉진제의 버프가 해금되었습니다!"), 60, 60, 60));
 			}
-			case null, default -> {}
+			case null, default ->
+			{
+			}
 		}
 	}
 }

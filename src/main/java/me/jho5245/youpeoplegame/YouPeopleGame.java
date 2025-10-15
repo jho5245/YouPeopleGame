@@ -1,11 +1,13 @@
 package me.jho5245.youpeoplegame;
 
+import com.jho5245.cucumbery.util.no_groups.CucumberyCommandExecutor;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import io.papermc.paper.plugin.configuration.PluginMeta;
 import me.jho5245.youpeoplegame.listener.*;
 import me.jho5245.youpeoplegame.service.CookieGivewayEveryNSeconds;
 import me.jho5245.youpeoplegame.service.Service;
+import me.jho5245.youpeoplegame.util.GUICommand;
 import me.jho5245.youpeoplegame.util.TestCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -53,17 +55,15 @@ public class YouPeopleGame extends JavaPlugin
 		pluginVersion = pluginMeta.getVersion();
 		pluginManager = Bukkit.getPluginManager();
 		services = new ArrayList<>();
+		registerCommands();
 		registerEvents();
-		PluginCommand pluginCommand = this.getCommand("testcommand2");
-		TestCommand testCommand = new TestCommand();
-		pluginCommand.setExecutor(testCommand);
-		pluginCommand.setTabCompleter(testCommand);
 		registerService();
 	}
 
 	private static final Set<Class<? extends Listener>> events = new HashSet<>(Arrays.asList(
 			CraftItem.class,
 			CustomBlockBreak.class,
+			InventoryClick.class,
 			InventoryOpen.class,
 			ItemLore3.class,
 			OpenWindowMerchant.class,
@@ -76,6 +76,19 @@ public class YouPeopleGame extends JavaPlugin
 			SetSlot.class,
 			WindowItems.class
 	));
+
+	private void registerCommands()
+	{
+		registerCommand("testcommand2", new TestCommand());
+		registerCommand("youpeoplegame", new GUICommand());
+	}
+
+	private void registerCommand(String command, CucumberyCommandExecutor executor)
+	{
+		PluginCommand pluginCommand = this.getCommand(command);
+		pluginCommand.setExecutor(executor);
+		pluginCommand.setTabCompleter(executor);
+	}
 
 	private void registerEvents()
 	{
@@ -106,8 +119,10 @@ public class YouPeopleGame extends JavaPlugin
 
 	public enum YouPeopleGameUserData
 	{
-		DAMP_COOKIE_POTION_USED("눅눅한-쿠키-포션-사용-여부"),
-		MOIST_COOKIE_BOOSTER_USED("촉촉한-쿠키-촉진제-사용-여부"),
+		DAMP_COOKIE_POTION_UNLOCKED("눅눅한-쿠키-포션.해금됨"),
+		DAMP_COOKIE_POTION_USE("눅눅한-쿠키-포션.사용-여부"),
+		MOIST_COOKIE_BOOSTER_UNLOCKED("촉촉한-쿠키-촉진제.해금됨"),
+		MOIST_COOKIE_BOOSTER_USE("촉촉한-쿠키-촉진제.사용-여부"),
 		;
 		final String key;
 

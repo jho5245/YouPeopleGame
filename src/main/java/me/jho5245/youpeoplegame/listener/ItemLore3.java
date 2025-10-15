@@ -3,7 +3,10 @@ package me.jho5245.youpeoplegame.listener;
 import com.jho5245.cucumbery.events.itemlore.ItemLore3Event;
 import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
 import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
+import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
+import me.jho5245.youpeoplegame.YouPeopleGame.YouPeopleGameUserData;
 import net.kyori.adventure.text.Component;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -15,13 +18,17 @@ public class ItemLore3 implements Listener
 	@EventHandler
 	public void onItemLore3(ItemLore3Event event)
 	{
+		Player player = event.getPlayer();
 		ItemStack itemStack = event.getItemStack();
 		List<Component> lore = event.getItemLore();
 		CustomMaterial customMaterial = CustomMaterial.itemStackOf(itemStack);
 		switch (customMaterial)
 		{
 			case YOUPEOPLEGAME_DAMP_COOKIE -> {
-				lore.add(ComponentUtil.translate("&75초를 기다려 얻은 쿠키다."));
+				if (player != null && UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_UNLOCKED) && UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_USE))
+					lore.add(ComponentUtil.translate("&74초를 기다려 얻은 쿠키다."));
+				else
+					lore.add(ComponentUtil.translate("&75초를 기다려 얻은 쿠키다."));
 				lore.add(ComponentUtil.translate("&7어딘가 좀 눅눅하다."));
 			}
 			case YOUPEOPLEGAME_DAMP_COOKIE_PILE -> {

@@ -8,4 +8,7 @@ depend: [Cucumbery]
 
 commands:
   testcommand2:
-    usage: 테스트 명령어
+    description: 테스트 명령어
+  youpeoplegame:
+    description: YouPeopleGame GUI 명령어
+    aliases: [game, 게임, rpdla, ㅎ믇]
