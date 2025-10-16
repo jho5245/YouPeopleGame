@@ -2,9 +2,11 @@ package me.jho5245.youpeoplegame.listener;
 
 import com.jho5245.cucumbery.events.itemlore.ItemLore3Event;
 import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
+import com.jho5245.cucumbery.util.storage.data.Constant;
 import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import me.jho5245.youpeoplegame.YouPeopleGame.YouPeopleGameUserData;
+import me.jho5245.youpeoplegame.service.CookieGivewayEveryNSeconds;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,10 +27,8 @@ public class ItemLore3 implements Listener
 		switch (customMaterial)
 		{
 			case YOUPEOPLEGAME_DAMP_COOKIE -> {
-				if (player != null && UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_UNLOCKED) && UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_USE))
-					lore.add(ComponentUtil.translate("&74초를 기다려 얻은 쿠키다."));
-				else
-					lore.add(ComponentUtil.translate("&75초를 기다려 얻은 쿠키다."));
+				int waitTick = player != null ? CookieGivewayEveryNSeconds.getWaitTick(player) : 100;
+					lore.add(ComponentUtil.translate("&7%s초를 기다려 얻은 쿠키다.", Constant.Sosu2.format(waitTick / 20d)));
 				lore.add(ComponentUtil.translate("&7어딘가 좀 눅눅하다."));
 			}
 			case YOUPEOPLEGAME_DAMP_COOKIE_PILE -> {
@@ -50,7 +50,7 @@ public class ItemLore3 implements Listener
 				lore.add(ComponentUtil.translate("&7다용도로 필요해질 것 같은 불이다."));
 			}
 			case YOUPEOPLEGAME_CRISPY_COOKIE_PICKAXE -> {
-				lore.add(ComponentUtil.translate("&7바삭한 쿠키로 만든 곡괭이다."));
+				lore.add(ComponentUtil.translate("&7key:item.youpeoplegame.crispy_cookie_pickaxe.description|바삭한 쿠키로 만든 곡괭이다."));
 			}
 			case YOUPEOPLEGAME_CRISPY_COOKIE_AXE -> {
 				lore.add(ComponentUtil.translate("&7바삭한 쿠키로 만든 도끼다."));
@@ -94,6 +94,33 @@ public class ItemLore3 implements Listener
 			}
 			case YOUPEOPLEGAME_REFINED_QUARTZ -> {
 				lore.add(ComponentUtil.translate("&7석영을 가공하여 만들었다."));
+			}
+			case YOUPEOPLEGAME_SUPER_MOIST_COOKIE_BOOSTER -> {
+				lore.add(ComponentUtil.translate("&7눅눅한 쿠키 포션을 촉촉한 쿠키로 고농축화하여 만들어진 퓨전 포션이다."));
+				lore.add(ComponentUtil.translate("&7사용 시 잠수자리에서 영구적으로 1.25초를 줄여 더 빠르게 쿠키를 얻을 수 있으며,"));
+				lore.add(ComponentUtil.translate("&750% 확률로 쿠키를 하나 더 얻을 수 있다."));
+				lore.add(ComponentUtil.translate("&7단, 딱 한 번만 사용할 수 있다."));
+			}
+			case YOUPEOPLEGAME_REFINED_HARD_STONE -> {
+				lore.add(ComponentUtil.translate("&7단단한 돌을 구워 만들어진 돌이다."));
+			}
+			case YOUPEOPLEGAME_REFINED_IRON -> {
+				lore.add(ComponentUtil.translate("&7철뭉치 구워 만들어진 철이다."));
+			}
+			case YOUPEOPLEGAME_REFINED_GOLD -> {
+				lore.add(ComponentUtil.translate("&7금뭉치 구워 만들어진 금이다."));
+			}
+			case YOUPEOPLEGAME_REFINED_COPPER -> {
+				lore.add(ComponentUtil.translate("&7구리뭉치 구워 만들어진 구리다."));
+			}
+			case YOUPEOPLEGAME_REFINED_DIAMOND -> {
+				lore.add(ComponentUtil.translate("&7다이아몬드 구워 만들어 강력해진 다이아몬드이다."));
+			}
+			case YOUPEOPLEGAME_REFINED_EMERALD -> {
+				lore.add(ComponentUtil.translate("&7에메랄드 구워 만들어 강력해진 에메랄드이다."));
+			}
+			case YOUPEOPLEGAME_REFINED_AMETHYST -> {
+				lore.add(ComponentUtil.translate("&7자수정 구워 만들어 강력해진 자수정이다."));
 			}
 			case null, default -> {}
 		}

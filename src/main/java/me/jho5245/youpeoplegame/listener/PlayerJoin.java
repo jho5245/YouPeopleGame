@@ -1,9 +1,12 @@
 package me.jho5245.youpeoplegame.listener;
 
 import com.jho5245.cucumbery.util.additemmanager.AddItemUtil;
+import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
 import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import me.jho5245.youpeoplegame.YouPeopleGame;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,5 +30,9 @@ public class PlayerJoin implements Listener
 			player.teleport(YouPeopleGame.SPAWN_LOCATION);
 		}
 //		player.setResourcePack("https://github.com/jho5245/YouPeopleGame-Resourcepack/archive/refs/heads/main.zip", null, Component.text("다운받아라"), true);
+
+		Bukkit.getScheduler().runTaskLater(YouPeopleGame.getPlugin(), () -> {
+			player.showTitle(Title.title(ComponentUtil.translate("&e주의사항"), ComponentUtil.translate("&c제발 아이템 설명을 꼭 읽으시길 바랍니다."), 5, 100, 15));
+		}, 100L);
 	}
 }

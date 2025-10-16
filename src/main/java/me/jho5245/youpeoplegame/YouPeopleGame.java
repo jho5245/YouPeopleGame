@@ -123,6 +123,8 @@ public class YouPeopleGame extends JavaPlugin
 		DAMP_COOKIE_POTION_USE("눅눅한-쿠키-포션.사용-여부"),
 		MOIST_COOKIE_BOOSTER_UNLOCKED("촉촉한-쿠키-촉진제.해금됨"),
 		MOIST_COOKIE_BOOSTER_USE("촉촉한-쿠키-촉진제.사용-여부"),
+		SUPER_MOIST_COOKIE_BOOSTER_UNLOCKED("촉촉한-쿠키-포션.해금됨"),
+		SUPER_MOIST_COOKIE_BOOSTER_USE("촉촉한-쿠키-포션.사용-여부"),
 		;
 		final String key;
 

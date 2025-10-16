@@ -49,6 +49,18 @@ public class PlayerItemConsume implements Listener
 				UserData.setToggle(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_USE);
 				player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
 				player.showTitle(Title.title(Component.empty(), ComponentUtil.translate("&e촉촉한 쿠키 촉진제의 버프가 해금되었습니다!"), 60, 60, 60));
+			}			case YOUPEOPLEGAME_SUPER_MOIST_COOKIE_BOOSTER ->
+			{
+				if (UserData.getBoolean(player, YouPeopleGameUserData.SUPER_MOIST_COOKIE_BOOSTER_UNLOCKED))
+				{
+					event.setCancelled(true);
+					MessageUtil.sendWarn(player, "이미 사용한 아이템입니다.");
+					return;
+				}
+				UserData.setToggle(player, YouPeopleGameUserData.SUPER_MOIST_COOKIE_BOOSTER_UNLOCKED);
+				UserData.setToggle(player, YouPeopleGameUserData.SUPER_MOIST_COOKIE_BOOSTER_USE);
+				player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
+				player.showTitle(Title.title(Component.empty(), ComponentUtil.translate("&e촉촉한 쿠키 포션의 버프가 해금되었습니다!"), 60, 60, 60));
 			}
 			case null, default ->
 			{

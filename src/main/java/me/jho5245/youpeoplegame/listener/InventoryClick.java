@@ -41,6 +41,13 @@ public class InventoryClick implements Listener
 							updated = true;
 						}
 					}
+					case 2 -> {
+						if (UserData.getBoolean(player, YouPeopleGameUserData.SUPER_MOIST_COOKIE_BOOSTER_UNLOCKED))
+						{
+							UserData.setToggle(player, YouPeopleGameUserData.SUPER_MOIST_COOKIE_BOOSTER_USE);
+							updated = true;
+						}
+					}
 				}
 				if (updated) GUICommand.openGUI(player);
 			}
