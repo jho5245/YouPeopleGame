@@ -67,10 +67,12 @@ public class YouPeopleGame extends JavaPlugin
 			InventoryOpen.class,
 			ItemLore3.class,
 			OpenWindowMerchant.class,
+			PlayerCustomMiningItemDamage.class,
+			PlayerInteract.class,
 			PlayerItemConsume.class,
 			PlayerItemDamage.class,
-			PlayerCustomMiningItemDamage.class,
 			PlayerJoin.class,
+			PlayerSwapHeldItem.class,
 			PrepareResult.class,
 			SetCursorItem.class,
 			SetSlot.class,
@@ -125,7 +127,7 @@ public class YouPeopleGame extends JavaPlugin
 		MOIST_COOKIE_BOOSTER_USE("촉촉한-쿠키-촉진제.사용-여부"),
 		SUPER_MOIST_COOKIE_BOOSTER_UNLOCKED("촉촉한-쿠키-포션.해금됨"),
 		SUPER_MOIST_COOKIE_BOOSTER_USE("촉촉한-쿠키-포션.사용-여부"),
-		;
+		ITEM_LORE_3("ITEM_LORE_3");
 		final String key;
 
 		YouPeopleGameUserData(String key)
