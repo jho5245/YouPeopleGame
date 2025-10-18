@@ -4,7 +4,6 @@ import com.jho5245.cucumbery.custom.customeffect.custom_mining.MiningManager;
 import com.jho5245.cucumbery.custom.customeffect.custom_mining.MiningResult;
 import com.jho5245.cucumbery.custom.customeffect.custom_mining.MiningScheduler;
 import com.jho5245.cucumbery.events.block.CustomBlockBreakEvent;
-import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.LocalPlayer;
@@ -22,12 +21,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class CustomBlockBreak implements Listener
 {
-	private Random random = new Random();
-
 	private final List<Pair<Material, Double>> ORE_CHANCE = new ArrayList<>(), WOOD_CHANCE = new ArrayList<>(), DIRT_CHANCE = new ArrayList<>();
 
 	public CustomBlockBreak()
