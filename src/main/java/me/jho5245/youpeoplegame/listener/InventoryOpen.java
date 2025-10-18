@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class InventoryOpen implements Listener
 {
-	private static final Set<InventoryType> ALLOWED_IVENTORY_TYPES = new HashSet<>(Arrays.asList(
+	private static final Set<InventoryType> ALLOWED_INVENTORY_TYPES = new HashSet<>(Arrays.asList(
 			InventoryType.CHEST, InventoryType.CARTOGRAPHY, InventoryType.BARREL, InventoryType.MERCHANT
 	));
 
@@ -26,7 +26,7 @@ public class InventoryOpen implements Listener
 		Player player = (Player) event.getPlayer();
 		Inventory inventory = event.getInventory();
 		InventoryType inventoryType = inventory.getType();
-		if (!ALLOWED_IVENTORY_TYPES.contains(inventoryType))
+		if (!ALLOWED_INVENTORY_TYPES.contains(inventoryType))
 		{
 			event.setCancelled(true);
 			if (player.hasPermission("youpeoplegame.admin"))
