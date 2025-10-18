@@ -16,7 +16,7 @@ import org.bukkit.inventory.PlayerInventory;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
-public class CookieGivewayEveryNSeconds extends Service
+public class CookieGiveawayEveryNSeconds extends Service
 {
 	ItemStack cookie;
 
@@ -30,7 +30,7 @@ public class CookieGivewayEveryNSeconds extends Service
 			"&a와 쿠키가 3개 이건 정말 신의 축복임이 틀림없어 놀라운!"
 	};
 
-	public CookieGivewayEveryNSeconds()
+	public CookieGiveawayEveryNSeconds()
 	{
 		cookie = CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE.create();
 		filter = player ->

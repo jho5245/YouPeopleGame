@@ -5,7 +5,7 @@ import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import io.papermc.paper.plugin.configuration.PluginMeta;
 import me.jho5245.youpeoplegame.listener.*;
-import me.jho5245.youpeoplegame.service.CookieGivewayEveryNSeconds;
+import me.jho5245.youpeoplegame.service.CookieGiveawayEveryNSeconds;
 import me.jho5245.youpeoplegame.service.Service;
 import me.jho5245.youpeoplegame.util.GUICommand;
 import me.jho5245.youpeoplegame.util.TestCommand;
@@ -30,8 +30,6 @@ public class YouPeopleGame extends JavaPlugin
 
 	public static final Location SPAWN_LOCATION = new Location(Bukkit.getWorld("youpeople_world"), 0, 64, 0);
 
-	private PluginMeta pluginMeta;
-
 	private String pluginName;
 
 	private String pluginVersion;
@@ -50,7 +48,7 @@ public class YouPeopleGame extends JavaPlugin
 	private void init()
 	{
 		plugin = this;
-		pluginMeta = this.getPluginMeta();
+		PluginMeta pluginMeta = this.getPluginMeta();
 		pluginName = pluginMeta.getName();
 		pluginVersion = pluginMeta.getVersion();
 		pluginManager = Bukkit.getPluginManager();
@@ -88,6 +86,7 @@ public class YouPeopleGame extends JavaPlugin
 	private void registerCommand(String command, CucumberyCommandExecutor executor)
 	{
 		PluginCommand pluginCommand = this.getCommand(command);
+		if (pluginCommand == null) throw new IllegalArgumentException("Missing command '%s' in plugin.yml".formatted(command));
 		pluginCommand.setExecutor(executor);
 		pluginCommand.setTabCompleter(executor);
 	}
@@ -108,7 +107,7 @@ public class YouPeopleGame extends JavaPlugin
 
 	private void registerService()
 	{
-		services.add(new CookieGivewayEveryNSeconds());
+		services.add(new CookieGiveawayEveryNSeconds());
 
 		services.forEach(Service::run);
 	}

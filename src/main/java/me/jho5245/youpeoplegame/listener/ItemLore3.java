@@ -6,7 +6,7 @@ import com.jho5245.cucumbery.util.storage.data.Constant;
 import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import me.jho5245.youpeoplegame.YouPeopleGame.YouPeopleGameUserData;
-import me.jho5245.youpeoplegame.service.CookieGivewayEveryNSeconds;
+import me.jho5245.youpeoplegame.service.CookieGiveawayEveryNSeconds;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
@@ -35,7 +35,7 @@ public class ItemLore3 implements Listener
 		{
 			case YOUPEOPLEGAME_DAMP_COOKIE ->
 			{
-				int waitTick = player != null ? CookieGivewayEveryNSeconds.getWaitTick(player) : 100;
+				int waitTick = player != null ? CookieGiveawayEveryNSeconds.getWaitTick(player) : 100;
 				lore.add(ComponentUtil.translate("&7%s초를 기다려 얻은 쿠키다.", Constant.Sosu2.format(waitTick / 20d)));
 				lore.add(ComponentUtil.translate("&7어딘가 좀 눅눅하다."));
 			}

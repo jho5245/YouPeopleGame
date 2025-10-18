@@ -11,7 +11,7 @@ import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
 import me.jho5245.youpeoplegame.YouPeopleGame;
 import me.jho5245.youpeoplegame.YouPeopleGame.YouPeopleGameUserData;
-import me.jho5245.youpeoplegame.service.CookieGivewayEveryNSeconds;
+import me.jho5245.youpeoplegame.service.CookieGiveawayEveryNSeconds;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -66,7 +66,7 @@ public class GUICommand implements CucumberyCommandExecutor
 	{
 		Inventory inventory = GUIManager.create(1, ComponentUtil.translate("YouPeopleGame GUI Example"), COOKIE_GUI_KEY);
 
-		int waitTick = CookieGivewayEveryNSeconds.getWaitTick(player);
+		int waitTick = CookieGiveawayEveryNSeconds.getWaitTick(player);
 		String waitTickDisplay = Constant.Sosu2.format(waitTick / 20d) + "초";
 		Component waitTickLore = ComponentUtil.translate("&e현재 쿠키 획득 시간 : %s", waitTickDisplay);
 
