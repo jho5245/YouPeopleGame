@@ -96,12 +96,14 @@ public class ItemLore3 implements Listener
 				lore.add(ComponentUtil.translate("&7더욱 눅눅한 쿠키를 액화하여 만든 이상한 포션이다."));
 				lore.add(ComponentUtil.translate("&7사용시 잠수자리에서 영구적으로 25%확률로 쿠키를 하나 더 얻을 수 있다."));
 				lore.add(ComponentUtil.translate("&7단, 딱 한 번만 사용할 수 있다."));
+				lore.add(ComponentUtil.translate("&7한 번 사용하면 사라진다."));
 			}
 			case YOUPEOPLEGAME_MOIST_COOKIE_BOOSTER ->
 			{
 				lore.add(ComponentUtil.translate("&7촉촉한 쿠키를 액화하여 만든 이상한 촉진제다."));
 				lore.add(ComponentUtil.translate("&7사용 시 잠수자리에서 영구적으로 1초를 줄여 더 빠르게 쿠키를 얻을 수 있다."));
 				lore.add(ComponentUtil.translate("&7단, 딱 한 번만 사용할 수 있다."));
+				lore.add(ComponentUtil.translate("&7한 번 사용하면 사라진다."));
 			}
 			case YOUPEOPLEGAME_HARD_STONE ->
 			{
@@ -137,6 +139,7 @@ public class ItemLore3 implements Listener
 				lore.add(ComponentUtil.translate("&7사용 시 잠수자리에서 영구적으로 1.25초를 줄여 더 빠르게 쿠키를 얻을 수 있으며,"));
 				lore.add(ComponentUtil.translate("&750% 확률로 쿠키를 하나 더 얻을 수 있다."));
 				lore.add(ComponentUtil.translate("&7단, 딱 한 번만 사용할 수 있다."));
+				lore.add(ComponentUtil.translate("&7한 번 사용하면 사라진다."));
 			}
 			case YOUPEOPLEGAME_REFINED_HARD_STONE ->
 			{
@@ -216,8 +219,9 @@ public class ItemLore3 implements Listener
 				lore.add(ComponentUtil.translate("&7신비로운 힘이 느껴지는 주머니다."));
 				lore.add(ComponentUtil.translate("&7무언가 보관할 수 있을것 같은 힘(?)이 느껴진다."));
 				lore.add(Component.empty());
-				lore.add(ComponentUtil.translate("&f손에 들고 %s 키를 누르면", Component.keybind("key.use", NamedTextColor.YELLOW)));
+				lore.add(ComponentUtil.translate("&f손에 들고 %s 키를 눌러 사용하면", Component.keybind("key.use", NamedTextColor.YELLOW)));
 				lore.add(ComponentUtil.translate("&f다음 목록에 있는 아이템의 최대 보관 용량이 100 증가한다.", Component.keybind("key.use", NamedTextColor.YELLOW)));
+				lore.add(ComponentUtil.translate("&f한 번 사용하면 사라진다.", Component.keybind("key.use", NamedTextColor.YELLOW)));
 
 				for (int i = 0; i < sackElements.size(); i += 4)
 				{
