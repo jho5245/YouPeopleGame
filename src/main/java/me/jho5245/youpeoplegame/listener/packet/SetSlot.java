@@ -1,14 +1,14 @@
-package me.jho5245.youpeoplegame.listener;
+package me.jho5245.youpeoplegame.listener.packet;
 
-import com.jho5245.cucumbery.events.addon.protocollib.SetCursorItemEvent;
+import com.jho5245.cucumbery.events.addon.protocollib.SetSlotEvent;
 import me.jho5245.youpeoplegame.util.ItemLoreModifier;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class SetCursorItem implements Listener
+public class SetSlot implements Listener
 {
 	@EventHandler
-	public void onWindowItems(SetCursorItemEvent event)
+	public void onWindowItems(SetSlotEvent event)
 	{
 		event.setItemStack(ItemLoreModifier.getInstance().perform(event.getItemStack()));
 	}

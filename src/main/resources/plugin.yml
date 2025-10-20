@@ -12,3 +12,9 @@ commands:
   youpeoplegame:
     description: YouPeopleGame GUI 명령어
     aliases: [game, 게임, rpdla, ㅎ믇]
+  giveup:
+    description: 점프맵 포기 명령어
+  gfs:
+    description: 보관함 명령어
+    usage: /<command> <get|store> <아이템 이름> [개수]
+    aliases: [보관함, 가방, getfromsack, rkqkd, ckdrh, qhrhksgka]

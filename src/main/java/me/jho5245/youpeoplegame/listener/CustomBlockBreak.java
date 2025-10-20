@@ -4,6 +4,8 @@ import com.jho5245.cucumbery.custom.customeffect.custom_mining.MiningManager;
 import com.jho5245.cucumbery.custom.customeffect.custom_mining.MiningResult;
 import com.jho5245.cucumbery.custom.customeffect.custom_mining.MiningScheduler;
 import com.jho5245.cucumbery.events.block.CustomBlockBreakEvent;
+import com.jho5245.cucumbery.util.no_groups.MessageUtil;
+import com.jho5245.cucumbery.util.storage.data.Prefix;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.LocalPlayer;
@@ -12,8 +14,9 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import me.jho5245.youpeoplegame.YouPeopleGame;
-import me.jho5245.youpeoplegame.YouPeopleGame.YouPeopleGameUserData;
+import me.jho5245.youpeoplegame.util.YouPeopleGameUserData;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bukkit.BlockChangeDelegate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -88,6 +91,11 @@ public class CustomBlockBreak implements Listener
 		event.setApplyPhysics(false);
 		Player player = event.getPlayer();
 		Location blockLocation = event.getBlock().getLocation();
+		Material blockType = event.getBlock().getType();
+		if (blockType == Material.ANCIENT_DEBRIS || blockType == Material.BAMBOO_BLOCK)
+		{
+			MessageUtil.broadcastPlayer(Prefix.INFO, "%s이(가) %s(을)를 획득하였습니다.", player, blockType);
+		}
 		LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
 		RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
 		RegionManager regionManager = container.get(localPlayer.getWorld());
@@ -110,7 +118,7 @@ public class CustomBlockBreak implements Listener
 		if (!event.isChain())
 		{
 			List<Location> locations = new ArrayList<>();
-			double miningSpread = UserData.getDouble(player, YouPeopleGameUserData.customKey("mining_spread"), 0);
+			double miningSpread = UserData.getDouble(player, YouPeopleGameUserData.MINING_SPREAD, 0);
 			int max = (int) (miningSpread / 100) + 1;
 			if (Math.random() * 100 < miningSpread % 100) max++;
 			addLocation(locations, player, blockLocation, blockLocation, max);

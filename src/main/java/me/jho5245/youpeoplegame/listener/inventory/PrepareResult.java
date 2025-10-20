@@ -1,4 +1,4 @@
-package me.jho5245.youpeoplegame.listener;
+package me.jho5245.youpeoplegame.listener.inventory;
 
 import com.destroystokyo.paper.event.inventory.PrepareResultEvent;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;

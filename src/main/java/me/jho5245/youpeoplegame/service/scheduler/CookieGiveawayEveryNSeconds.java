@@ -1,4 +1,4 @@
-package me.jho5245.youpeoplegame.service;
+package me.jho5245.youpeoplegame.service.scheduler;
 
 import com.jho5245.cucumbery.util.additemmanager.AddItemUtil;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
@@ -6,7 +6,7 @@ import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
 import me.jho5245.youpeoplegame.YouPeopleGame;
-import me.jho5245.youpeoplegame.YouPeopleGame.YouPeopleGameUserData;
+import me.jho5245.youpeoplegame.util.YouPeopleGameUserData;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -16,7 +16,7 @@ import org.bukkit.inventory.PlayerInventory;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
-public class CookieGiveawayEveryNSeconds extends Service
+public class CookieGiveawayEveryNSeconds extends SchedulerService
 {
 	ItemStack cookie;
 

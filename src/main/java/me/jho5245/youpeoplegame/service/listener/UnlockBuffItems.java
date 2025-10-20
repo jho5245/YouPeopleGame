@@ -1,23 +1,40 @@
-package me.jho5245.youpeoplegame.listener;
+package me.jho5245.youpeoplegame.service.listener;
 
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
 import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
-import me.jho5245.youpeoplegame.YouPeopleGame.YouPeopleGameUserData;
+import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
+import me.jho5245.youpeoplegame.util.SackManager;
+import me.jho5245.youpeoplegame.util.SackManager.SackElement;
+import me.jho5245.youpeoplegame.util.SackManager.SackElement.Category;
+import me.jho5245.youpeoplegame.util.YouPeopleGameUserData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-public class PlayerItemConsume implements Listener
+import java.util.List;
+
+public class UnlockBuffItems
 {
-	@EventHandler
-	public void onPlayerItemConsume(final PlayerItemConsumeEvent event)
+	private static final UnlockBuffItems instance = new UnlockBuffItems();
+
+	private UnlockBuffItems()
+	{
+
+	}
+
+	public static UnlockBuffItems get()
+	{
+		return instance;
+	}
+
+	public void listen(PlayerItemConsumeEvent event)
 	{
 		Player player = event.getPlayer();
 		ItemStack item = event.getItem();
@@ -49,7 +66,8 @@ public class PlayerItemConsume implements Listener
 				UserData.setToggle(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_USE);
 				player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
 				player.showTitle(Title.title(Component.empty(), ComponentUtil.translate("&e촉촉한 쿠키 촉진제의 버프가 해금되었습니다!"), 60, 60, 60));
-			}			case YOUPEOPLEGAME_SUPER_MOIST_COOKIE_BOOSTER ->
+			}
+			case YOUPEOPLEGAME_SUPER_MOIST_COOKIE_BOOSTER ->
 			{
 				if (UserData.getBoolean(player, YouPeopleGameUserData.SUPER_MOIST_COOKIE_BOOSTER_UNLOCKED))
 				{
@@ -65,6 +83,34 @@ public class PlayerItemConsume implements Listener
 			case null, default ->
 			{
 			}
+		}
+	}
+
+	public void listen(PlayerInteractEvent event)
+	{
+		Player player = event.getPlayer();
+		ItemStack item = event.getItem();
+		if (!ItemStackUtil.itemExists(item))
+			return;
+		var action = event.getAction();
+		if (!action.isRightClick())
+			return;
+		EquipmentSlot hand = event.getHand();
+		CustomMaterial customMaterial = CustomMaterial.itemStackOf(item);
+		Category category = Category.getByCustomMaterial(customMaterial);
+		if (category != null)
+		{
+			if (hand != null) player.swingHand(hand);
+			item.setAmount(item.getAmount() - 1);
+			UserData.set(player, YouPeopleGameUserData.SACK_USED, true);
+			SackManager sackManager = SackManager.get();
+			List<SackElement> sackElements = SackElement.getElementsByCategory(category);
+			sackElements.forEach(sackElement ->
+			{
+				sackManager.setMaxAmount(player, sackElement, sackManager.getMaxAmount(player, sackElement) + 100);
+				int maxAmount = sackManager.getMaxAmount(player, sackElement);
+				MessageUtil.info(player, "%s을(를) 보관할 수 있는 공간이 100칸 늘어났습니다. (현재 최대 %s칸)", sackElement.getItemStack(), maxAmount);
+			});
 		}
 	}
 }

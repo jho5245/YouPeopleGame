@@ -1,4 +1,4 @@
-package me.jho5245.youpeoplegame.listener;
+package me.jho5245.youpeoplegame.listener.player;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

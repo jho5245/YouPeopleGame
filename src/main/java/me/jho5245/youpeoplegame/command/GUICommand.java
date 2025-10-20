@@ -1,4 +1,4 @@
-package me.jho5245.youpeoplegame.util;
+package me.jho5245.youpeoplegame.command;
 
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent.Completion;
 import com.jho5245.cucumbery.util.gui.GUIManager;
@@ -10,8 +10,8 @@ import com.jho5245.cucumbery.util.storage.no_groups.CreateItemStack;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
 import me.jho5245.youpeoplegame.YouPeopleGame;
-import me.jho5245.youpeoplegame.YouPeopleGame.YouPeopleGameUserData;
-import me.jho5245.youpeoplegame.service.CookieGiveawayEveryNSeconds;
+import me.jho5245.youpeoplegame.util.YouPeopleGameUserData;
+import me.jho5245.youpeoplegame.service.scheduler.CookieGiveawayEveryNSeconds;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

@@ -2,13 +2,24 @@ package me.jho5245.youpeoplegame;
 
 import com.jho5245.cucumbery.util.no_groups.CucumberyCommandExecutor;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
-import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import io.papermc.paper.plugin.configuration.PluginMeta;
+import me.jho5245.youpeoplegame.command.GUICommand;
+import me.jho5245.youpeoplegame.command.ParkourGiveUp;
+import me.jho5245.youpeoplegame.command.SackCommand;
+import me.jho5245.youpeoplegame.command.TestCommand;
 import me.jho5245.youpeoplegame.listener.*;
-import me.jho5245.youpeoplegame.service.CookieGiveawayEveryNSeconds;
-import me.jho5245.youpeoplegame.service.Service;
-import me.jho5245.youpeoplegame.util.GUICommand;
-import me.jho5245.youpeoplegame.util.TestCommand;
+import me.jho5245.youpeoplegame.listener.inventory.CraftItem;
+import me.jho5245.youpeoplegame.listener.inventory.InventoryClick;
+import me.jho5245.youpeoplegame.listener.inventory.InventoryOpen;
+import me.jho5245.youpeoplegame.listener.inventory.PrepareResult;
+import me.jho5245.youpeoplegame.listener.packet.OpenWindowMerchant;
+import me.jho5245.youpeoplegame.listener.packet.SetCursorItem;
+import me.jho5245.youpeoplegame.listener.packet.SetSlot;
+import me.jho5245.youpeoplegame.listener.packet.WindowItems;
+import me.jho5245.youpeoplegame.listener.player.*;
+import me.jho5245.youpeoplegame.service.SheepWool;
+import me.jho5245.youpeoplegame.service.scheduler.CookieGiveawayEveryNSeconds;
+import me.jho5245.youpeoplegame.service.scheduler.SchedulerService;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.PluginCommand;
@@ -36,7 +47,7 @@ public class YouPeopleGame extends JavaPlugin
 
 	private PluginManager pluginManager;
 
-	private List<Service> services = new ArrayList<>();
+	private List<SchedulerService> services = new ArrayList<>();
 
 	@Override
 	public void onEnable()
@@ -67,10 +78,12 @@ public class YouPeopleGame extends JavaPlugin
 			OpenWindowMerchant.class,
 			PlayerCustomMiningItemDamage.class,
 			PlayerInteract.class,
+			PlayerShearEntity.class,
 			PlayerItemConsume.class,
 			PlayerItemDamage.class,
 			PlayerJoin.class,
 			PlayerSwapHeldItem.class,
+			PlayerTelekinesisItem.class,
 			PrepareResult.class,
 			SetCursorItem.class,
 			SetSlot.class,
@@ -81,6 +94,8 @@ public class YouPeopleGame extends JavaPlugin
 	{
 		registerCommand("testcommand2", new TestCommand());
 		registerCommand("youpeoplegame", new GUICommand());
+		registerCommand("giveup", ParkourGiveUp.get());
+		registerCommand("gfs", new SackCommand());
 	}
 
 	private void registerCommand(String command, CucumberyCommandExecutor executor)
@@ -108,40 +123,13 @@ public class YouPeopleGame extends JavaPlugin
 	private void registerService()
 	{
 		services.add(new CookieGiveawayEveryNSeconds());
-
-		services.forEach(Service::run);
+		services.add(SheepWool.get());
+		services.forEach(SchedulerService::run);
 	}
 
 	@Override
 	public void onDisable()
 	{
 		MessageUtil.consoleSendMessage("%s v.%s has been disabled!", pluginName, pluginVersion);
-	}
-
-	public enum YouPeopleGameUserData
-	{
-		DAMP_COOKIE_POTION_UNLOCKED("눅눅한-쿠키-포션.해금됨"),
-		DAMP_COOKIE_POTION_USE("눅눅한-쿠키-포션.사용-여부"),
-		MOIST_COOKIE_BOOSTER_UNLOCKED("촉촉한-쿠키-촉진제.해금됨"),
-		MOIST_COOKIE_BOOSTER_USE("촉촉한-쿠키-촉진제.사용-여부"),
-		SUPER_MOIST_COOKIE_BOOSTER_UNLOCKED("촉촉한-쿠키-포션.해금됨"),
-		SUPER_MOIST_COOKIE_BOOSTER_USE("촉촉한-쿠키-포션.사용-여부"),
-		ITEM_LORE_3("ITEM_LORE_3");
-		final String key;
-
-		YouPeopleGameUserData(String key)
-		{
-			this.key = key;
-		}
-
-		public String toString()
-		{
-			return UserData.CUSTOM_DATA.getKey() + ".YouPeopleGame." + key;
-		}
-
-		public static String customKey(String key)
-		{
-			return UserData.CUSTOM_DATA.getKey() + ".YouPeopleGame." + key;
-		}
 	}
 }

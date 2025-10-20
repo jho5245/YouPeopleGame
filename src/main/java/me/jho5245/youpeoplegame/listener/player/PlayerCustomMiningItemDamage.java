@@ -1,4 +1,4 @@
-package me.jho5245.youpeoplegame.listener;
+package me.jho5245.youpeoplegame.listener.player;
 
 import com.jho5245.cucumbery.events.item.PlayerCustomMiningItemDamageEvent;
 import org.bukkit.event.EventHandler;

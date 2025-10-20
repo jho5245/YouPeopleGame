@@ -1,4 +1,4 @@
-package me.jho5245.youpeoplegame.util;
+package me.jho5245.youpeoplegame.command;
 
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent.Completion;
 import com.jho5245.cucumbery.util.no_groups.CucumberyCommandExecutor;

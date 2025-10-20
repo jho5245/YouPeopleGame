@@ -1,4 +1,4 @@
-package me.jho5245.youpeoplegame.listener;
+package me.jho5245.youpeoplegame.listener.packet;
 
 import com.jho5245.cucumbery.events.addon.protocollib.OpenWindowMerchantEvent;
 import me.jho5245.youpeoplegame.util.ItemLoreModifier;
