@@ -10,8 +10,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
-import java.util.Optional;
-
 public class GUI
 {
 	private static final GUI instance = new GUI();
