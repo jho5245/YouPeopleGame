@@ -254,13 +254,25 @@ public class ItemLore3 implements Listener
 						{
 							lore.add(ComponentUtil.translate("&f자동 보관 : %s %s", "&c꺼짐", "&8[8번 키로 켜기]"));
 						}
-						lore.add(ComponentUtil.translate("&7자동 보관 기능을 사용하면"));
-						lore.add(ComponentUtil.translate("&7블록을 부수거나 몹을 잡을 때 얻는 아이템이"));
-						lore.add(ComponentUtil.translate("&7자동으로 보관함에 보관됩니다."));
-						lore.add(ComponentUtil.translate("&7단, 보관함이 가득 차면 보관되지 않고"));
-						lore.add(ComponentUtil.translate("&7기존 획득 경로(인벤토리)에 보관됩니다."));
-						lore.add(Component.empty());
+
 					}
+					else
+					{
+						if (UserData.getBoolean(player, YouPeopleGameUserData.SACK_AUTO_FILL))
+						{
+							lore.add(ComponentUtil.translate("&f자동 보관 : %s", "&a켜짐"));
+						}
+						else
+						{
+							lore.add(ComponentUtil.translate("&f자동 보관 : %s %s", "&c꺼짐"));
+						}
+					}
+					lore.add(ComponentUtil.translate("&7자동 보관 기능을 사용하면"));
+					lore.add(ComponentUtil.translate("&7블록을 부수거나 몹을 잡을 때 얻는 아이템이"));
+					lore.add(ComponentUtil.translate("&7자동으로 보관함에 보관됩니다."));
+					lore.add(ComponentUtil.translate("&7단, 보관함이 가득 차면 보관되지 않고"));
+					lore.add(ComponentUtil.translate("&7기존 획득 경로(인벤토리)에 보관됩니다."));
+					lore.add(Component.empty());
 					lore.add(ComponentUtil.translate("&e[현재 보관 용량 정보]"));
 					for (SackElement sackElement : sackElements)
 					{

@@ -118,12 +118,11 @@ public class SackCommand implements CucumberyCommandExecutor
 		if (args[0].equals("show"))
 		{
 			String category = args.length > 1 && !args[1].equals("--all") ? args[1] : "";
-			Category categoryEnum = Category.getByName(category);
+			Category categoryEnum = args.length > 1 && args[1].equals("--force") ? Category.FORCE : Category.getByName(category);
 			MessageUtil.info(player, "현재 보관중인 아이템 목록 (%s)", categoryEnum != null ? categoryEnum.toString() : "전체");
-			for (SackElement sackElement : SackElement.values())
+			for (SackElement sackElement : categoryEnum != null && categoryEnum != Category.FORCE
+					? SackElement.getElementsByCategory(categoryEnum) : Arrays.stream(SackElement.values()).toList())
 			{
-				if (categoryEnum != null && !sackElement.getCategory().equals(categoryEnum))
-					continue;
 				int amount = SackManager.get().getAmount(player, sackElement);
 				if (amount == 0 && categoryEnum == null)
 					continue;

@@ -5,6 +5,7 @@ import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
 import com.jho5245.cucumbery.util.storage.component.util.ItemNameUtil;
 import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
+import com.jho5245.cucumbery.util.storage.data.EnumHideable;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
 import net.kyori.adventure.text.Component;
@@ -122,7 +123,7 @@ public class SackManager
 
 		public String toString()
 		{
-			return this.name().toLowerCase();
+			return this.category.name().toLowerCase() + "." + this.name().toLowerCase();
 		}
 
 		public Component getItemStackNameComponent()
@@ -182,8 +183,13 @@ public class SackManager
 			return elements;
 		}
 
-		public enum Category
+		public enum Category implements EnumHideable
 		{
+			/**
+			 * internal use only
+			 */
+			FORCE("모두 보기"),
+
 			COMBAT("전투"),
 			MINING("채광"),
 			COOKIE("쿠키"),
@@ -226,6 +232,12 @@ public class SackManager
 					case YOUPEOPLEGAME_SACK_EXPANDER_CURRENCY ->  Category.CURRENCY;
 					case null, default -> null;
 				};
+			}
+
+			@Override
+			public boolean isHiddenEnum()
+			{
+				return this == FORCE;
 			}
 		}
 	}

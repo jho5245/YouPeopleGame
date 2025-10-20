@@ -7,6 +7,10 @@ import me.jho5245.youpeoplegame.util.YouPeopleGameUserData;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
+
+import java.util.Optional;
 
 public class GUI
 {
@@ -28,6 +32,9 @@ public class GUI
 		Player player = (Player) event.getView().getPlayer();
 		Component title = event.getView().title();
 		if (!GUIManager.isGUITitle(title))
+			return;
+		Inventory clickedInventory = event.getClickedInventory();
+		if (clickedInventory == null || clickedInventory.getType() == InventoryType.PLAYER)
 			return;
 		String key = GUIManager.getGUIKey(event.getView().title());
 		switch (key)
