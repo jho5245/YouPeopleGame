@@ -222,7 +222,7 @@ public class ItemLore3 implements Listener
 				lore.add(ComponentUtil.translate("&f손에 들고 %s 키를 눌러 사용하면", Component.keybind("key.use", NamedTextColor.YELLOW)));
 				lore.add(ComponentUtil.translate("&f다음 목록에 있는 아이템의 최대 보관 용량이 100 증가한다.", Component.keybind("key.use", NamedTextColor.YELLOW)));
 				lore.add(ComponentUtil.translate("&f한 번 사용하면 사라진다.", Component.keybind("key.use", NamedTextColor.YELLOW)));
-
+				lore.add(Component.empty());
 				for (int i = 0; i < sackElements.size(); i += 4)
 				{
 					StringBuilder builder = new StringBuilder();
