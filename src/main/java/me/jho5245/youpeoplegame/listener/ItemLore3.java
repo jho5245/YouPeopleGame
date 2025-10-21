@@ -6,15 +6,16 @@ import com.jho5245.cucumbery.util.storage.component.util.ItemNameUtil;
 import com.jho5245.cucumbery.util.storage.data.Constant;
 import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
-import me.jho5245.youpeoplegame.util.SackManager;
-import me.jho5245.youpeoplegame.util.SackManager.SackElement;
-import me.jho5245.youpeoplegame.util.SackManager.SackElement.Category;
 import me.jho5245.youpeoplegame.service.listener.CondenseItem;
 import me.jho5245.youpeoplegame.service.listener.CondenseItem.CondenseMap;
 import me.jho5245.youpeoplegame.service.scheduler.CookieGiveawayEveryNSeconds;
+import me.jho5245.youpeoplegame.util.SackManager;
+import me.jho5245.youpeoplegame.util.SackManager.SackElement;
+import me.jho5245.youpeoplegame.util.SackManager.SackElement.Category;
 import me.jho5245.youpeoplegame.util.YouPeopleGameUserData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -193,21 +194,33 @@ public class ItemLore3 implements Listener
 		}
 
 		// 아이템 압축 기능 설명
-		if (CondenseItem.get().CONDENSE_MAP.containsKey(customMaterial))
+		Object itemMaterial = customMaterial != null ? customMaterial : itemStack.getType();
+		if (CondenseItem.getCondenseMap().containsKey(itemMaterial))
 		{
-			CondenseMap condenseMap = CondenseItem.get().CONDENSE_MAP.get(customMaterial);
-			Object fromObject = condenseMap.from;
-			int fromAmount = condenseMap.fromAmount;
+			CondenseMap condenseMap = CondenseItem.getCondenseMap().get(itemMaterial);
+			List<Pair<Object, Integer>> fromObject = condenseMap.from;
 			int toAmount = condenseMap.toAmount;
-			Component fromDisplay = switch (fromObject)
-			{
-				case Material material -> ItemNameUtil.itemName(material);
-				case CustomMaterial custom_material -> custom_material.getDisplayName();
-				default -> throw new IllegalArgumentException("");
-			};
+
 			lore.add(Component.empty());
-			lore.add(ComponentUtil.translate("&f손에 들고 %s 키를 누르면 %s %s개를", Component.keybind("key.use", NamedTextColor.YELLOW), fromDisplay, fromAmount));
-			lore.add(ComponentUtil.translate("&f즉시 %s %s개로 바꿀 수 있다.", customMaterial.getDisplayName(), toAmount));
+			StringBuilder s = new StringBuilder("&f손에 들고 %s 키를 누르면 ");
+			List<Component> arguments = new ArrayList<>(List.of(Component.keybind("key.use", NamedTextColor.YELLOW)));
+			for (Pair<Object, Integer> pair : fromObject)
+			{
+				int amount = pair.getRight();
+				s = s.append("%s %s개, ");
+				Component fromDisplay = switch (pair.getLeft())
+				{
+					case Material material -> ItemNameUtil.itemName(material);
+					case CustomMaterial custom_material -> custom_material.getDisplayName();
+					default -> throw new IllegalArgumentException("");
+				};
+				arguments.add(fromDisplay);
+				arguments.add(ComponentUtil.create(player, amount));
+			}
+			lore.add(ComponentUtil.translate(s.substring(0, s.length() - 2) + "를", Component.keybind("key.use", NamedTextColor.YELLOW)).arguments(arguments));
+			// CustomMaterial이 아닌 경우 표시 이름을 Material로
+			Object displayName = customMaterial != null ? customMaterial.getDisplayName() : ItemNameUtil.itemName(itemStack.getType());
+			lore.add(ComponentUtil.translate("&f즉시 %s %s개로 바꿀 수 있다.", displayName, toAmount));
 		}
 
 		// Sack
@@ -264,7 +277,7 @@ public class ItemLore3 implements Listener
 						}
 						else
 						{
-							lore.add(ComponentUtil.translate("&f자동 보관 : %s %s", "&c꺼짐"));
+							lore.add(ComponentUtil.translate("&f자동 보관 : %s", "&c꺼짐"));
 						}
 					}
 					lore.add(ComponentUtil.translate("&7자동 보관 기능을 사용하면"));
