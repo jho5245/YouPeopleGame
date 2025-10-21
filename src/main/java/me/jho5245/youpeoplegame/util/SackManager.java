@@ -56,6 +56,8 @@ public class SackManager
 		DAMP_COOKIE(CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE, Category.COOKIE),
 		DAMP_COOKIE_PILE(CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE_PILE, Category.COOKIE),
 		DAMP_COOKIE_EVEN(CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE_EVEN, Category.COOKIE),
+		CRISPY_COOKIE(CustomMaterial.YOUPEOPLEGAME_CRISPY_COOKIE, Category.CRISPY_COOKIE),
+		CRISPY_COOKIE_BOX(CustomMaterial.YOUPEOPLEGAME_CRISPY_COOKIE_BOX, Category.CRISPY_COOKIE),
 
 		OAK_LOG(Material.OAK_LOG, Category.WOOD),
 		SPRUCE_LOG(Material.SPRUCE_LOG, Category.WOOD),
@@ -193,6 +195,7 @@ public class SackManager
 			COMBAT("전투"),
 			MINING("채광"),
 			COOKIE("쿠키"),
+			CRISPY_COOKIE("바삭한 쿠키"),
 			WOOD("나무"),
 			DIRT("흙"),
 
@@ -228,8 +231,8 @@ public class SackManager
 					case YOUPEOPLEGAME_SACK_EXPANDER_MINING -> Category.MINING;
 					case YOUPEOPLEGAME_SACK_EXPANDER_COOKIE -> Category.COOKIE;
 					case YOUPEOPLEGAME_SACK_EXPANDER_WOOD -> Category.WOOD;
-					case YOUPEOPLEGAME_SACK_EXPANDER_DIRT ->  Category.DIRT;
-					case YOUPEOPLEGAME_SACK_EXPANDER_CURRENCY ->  Category.CURRENCY;
+					case YOUPEOPLEGAME_SACK_EXPANDER_DIRT -> Category.DIRT;
+					case YOUPEOPLEGAME_SACK_EXPANDER_CURRENCY -> Category.CURRENCY;
 					case null, default -> null;
 				};
 			}
