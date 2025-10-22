@@ -8,11 +8,13 @@ import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.data.EnumHideable;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
+import me.jho5245.youpeoplegame.util.SackManager.SackElement.Category;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,20 +36,13 @@ public class SackManager
 	public enum SackElement
 	{
 		COBBLESTONE(Material.COBBLESTONE, Category.MINING),
-		STONE(Material.STONE, Category.MINING),
 		COAL(Material.COAL, Category.MINING),
 		RAW_COPPER(Material.RAW_COPPER, Category.MINING),
-
-		COPPER_INGOT(Material.COPPER_INGOT, Category.MINING),
 		RAW_IRON(Material.RAW_IRON, Category.MINING),
-		IRON_INGOT(Material.IRON_INGOT, Category.MINING),
 		RAW_GOLD(Material.RAW_GOLD, Category.MINING),
-
-		GOLD_INGOT(Material.GOLD_INGOT, Category.MINING),
 		REDSTONE(Material.REDSTONE, Category.MINING),
 		LAPIS_LAZULI(Material.LAPIS_LAZULI, Category.MINING),
 		QUARTZ(Material.QUARTZ, Category.MINING),
-
 		DIAMOND(Material.DIAMOND, Category.MINING),
 		EMERALD(Material.EMERALD, Category.MINING),
 		AMEYTHST_SHARD(Material.AMETHYST_SHARD, Category.MINING),
@@ -56,19 +51,18 @@ public class SackManager
 		DAMP_COOKIE(CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE, Category.COOKIE),
 		DAMP_COOKIE_PILE(CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE_PILE, Category.COOKIE),
 		DAMP_COOKIE_EVEN(CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE_EVEN, Category.COOKIE),
-		CRISPY_COOKIE(CustomMaterial.YOUPEOPLEGAME_CRISPY_COOKIE, Category.CRISPY_COOKIE),
-		CRISPY_COOKIE_BOX(CustomMaterial.YOUPEOPLEGAME_CRISPY_COOKIE_BOX, Category.CRISPY_COOKIE),
+		CRISPY_COOKIE(CustomMaterial.YOUPEOPLEGAME_CRISPY_COOKIE, Category.COOKIE),
+		CRISPY_COOKIE_BOX(CustomMaterial.YOUPEOPLEGAME_CRISPY_COOKIE_BOX, Category.COOKIE),
+		MOIST_COOKIE(CustomMaterial.YOUPEOPLEGAME_MOIST_COOKIE, Category.COOKIE),
 
 		OAK_LOG(Material.OAK_LOG, Category.WOOD),
 		SPRUCE_LOG(Material.SPRUCE_LOG, Category.WOOD),
 		BIRCH_LOG(Material.BIRCH_LOG, Category.WOOD),
 		DARK_OAK_LOG(Material.DARK_OAK_LOG, Category.WOOD),
-
 		ACACIA_LOG(Material.ACACIA_LOG, Category.WOOD),
 		JUNGLE_LOG(Material.JUNGLE_LOG, Category.WOOD),
 		PALE_OAK_LOG(Material.PALE_OAK_LOG, Category.WOOD),
 		CHERRY_LOG(Material.CHERRY_LOG, Category.WOOD),
-
 		MANGROVE_LOG(Material.MANGROVE_LOG, Category.WOOD),
 		CRIMSON_STEM(Material.CRIMSON_STEM, Category.WOOD),
 		WARPED_STEM(Material.WARPED_STEM, Category.WOOD),
@@ -78,15 +72,11 @@ public class SackManager
 		SAND(Material.SAND, Category.DIRT),
 		RED_SAND(Material.RED_SAND, Category.DIRT),
 		MUD(Material.MUD, Category.DIRT),
-
 		GRAVEL(Material.GRAVEL, Category.DIRT),
 		CLAY(Material.CLAY, Category.DIRT),
-		CLAY_BALL(Material.CLAY_BALL, Category.DIRT),
 		MOSS_BLOCK(Material.MOSS_BLOCK, Category.DIRT),
-
 		PALE_MOSS_BLOCK(Material.PALE_MOSS_BLOCK, Category.DIRT),
 		SNOW_BLOCK(Material.SNOW_BLOCK, Category.DIRT),
-		SNOWBALL(Material.SNOWBALL, Category.DIRT),
 
 		MEDAL_OF_PARKOUR(CustomMaterial.YOUPEOPLEGAME_MEDAL_OF_PARKOUR, Category.CURRENCY),
 		;
@@ -190,12 +180,11 @@ public class SackManager
 			/**
 			 * internal use only
 			 */
-			FORCE("모두 보기"),
+			FORCE("--force"),
 
 			COMBAT("전투"),
 			MINING("채광"),
 			COOKIE("쿠키"),
-			CRISPY_COOKIE("바삭한 쿠키"),
 			WOOD("나무"),
 			DIRT("흙"),
 
@@ -211,7 +200,12 @@ public class SackManager
 			@Override
 			public String toString()
 			{
-				return name;
+				return this.name().toLowerCase();
+			}
+
+			public String getName()
+			{
+				return this.name;
 			}
 
 			public static Category getByName(String name)
@@ -242,27 +236,71 @@ public class SackManager
 			{
 				return this == FORCE;
 			}
+
+			public ItemStack getDisplayItemStack()
+			{
+				Material material = switch (this)
+				{
+					case COMBAT -> Material.ROTTEN_FLESH;
+					case MINING -> Material.DIAMOND;
+					case COOKIE -> Material.COOKIE;
+					case WOOD -> Material.OAK_WOOD;
+					case DIRT ->  Material.DIRT;
+					case CURRENCY -> Material.MUSIC_DISC_13;
+					default -> Material.STONE;
+				};
+				ItemStack itemStack = new ItemStack(Material.DEBUG_STICK);
+				ItemMeta itemMeta = itemStack.getItemMeta();
+				var dataComponent = itemMeta.getCustomModelDataComponent();
+				dataComponent.setStrings(List.of("youpeoplegame_gui_sack_category_" + this.name().toLowerCase()));
+				itemMeta.setCustomModelDataComponent(dataComponent);
+				itemMeta.setEnchantmentGlintOverride(false);
+				itemMeta.displayName(ComponentUtil.translate("&e%s 보관함", this.getName()));
+				itemMeta.setItemModel(material.getKey());
+				itemStack.setItemMeta(itemMeta);
+				return itemStack;
+			}
 		}
+	}
+
+	private String getPath(Category category)
+	{
+		return YouPeopleGameUserData.SACK_CONTENTS + "." + category;
+	}
+
+	private String getPath(SackElement sackElement)
+	{
+		return getPath(sackElement.category) + ".아이템-목록." + sackElement.name().toLowerCase();
+	}
+
+	public int getCategoryUnlockCount(Player player, Category category)
+	{
+		return UserData.getInt(player, getPath(category) + ".확장-횟수");
+	}
+
+	public void setCategoryUnlockCount(Player player, Category category, int unlockCount)
+	{
+		UserData.set(player, getPath(category) + ".확장-횟수", unlockCount);
 	}
 
 	public int getAmount(Player player, SackElement element)
 	{
-		return UserData.getInt(player, YouPeopleGameUserData.SACK_CONTENTS + "." + element + ".amount");
+		return UserData.getInt(player, getPath(element) + ".amount");
 	}
 
 	public void setAmount(Player player, SackElement element, int amount)
 	{
-		UserData.set(player, YouPeopleGameUserData.SACK_CONTENTS + "." + element + ".amount", amount);
+		UserData.set(player, getPath(element) + ".amount", amount);
 	}
 
 	public int getMaxAmount(Player player, SackElement element)
 	{
-		return UserData.getInt(player, YouPeopleGameUserData.SACK_CONTENTS + "." + element + ".max-amount");
+		return UserData.getInt(player, getPath(element) + ".max-amount");
 	}
 
 	public void setMaxAmount(Player player, SackElement element, int amount)
 	{
-		UserData.set(player, YouPeopleGameUserData.SACK_CONTENTS + "." + element + ".max-amount", amount);
+		UserData.set(player, getPath(element) +  ".max-amount", amount);
 	}
 
 	public boolean addItem(Player player, SackElement element, int itemStackAmount)
@@ -317,7 +355,169 @@ public class SackManager
 		}
 		setAmount(player, element, amount - itemStackAmount);
 		AddItemUtil.addItem(player, itemStack);
-		MessageUtil.info(player, "보관함에서 %s을(를) %s개 꺼냈습니다.", itemStack, itemStackAmount);
+		MessageUtil.info(player, "보관함에서 %s을(를) %s개 꺼냈습니다. (%s / %s)", itemStack, itemStackAmount, getAmount(player, element), getMaxAmount(player, element));
 		return true;
+	}
+
+	// 주머니 누적 확장에 따른 다음 최대 보관 가능 수치. -1일 경우 최대 업그레이드
+	public int getNextMaxAmount(Player player, SackElement element)
+	{
+		int categoryUnlockCount = getCategoryUnlockCount(player, element.getCategory());
+		switch (element)
+		{
+			case DAMP_COOKIE ->
+			{
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 640;
+					case 1 -> 1280;
+					case 2 -> 2000;
+					case 3 -> 3200;
+					default -> -1;
+				};
+			}
+			case DAMP_COOKIE_PILE ->
+			{
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 64;
+					case 1 -> 128;
+					case 2 -> 200;
+					case 3 -> 320;
+					default -> -1;
+				};
+			}
+			case DAMP_COOKIE_EVEN, CRISPY_COOKIE_BOX, MOIST_COOKIE ->
+			{
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 12;
+					case 1 -> 20;
+					case 2 -> 32;
+					case 3 -> 64;
+					default -> -1;
+				};
+			}
+			case CRISPY_COOKIE ->
+			{
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 320;
+					case 1 -> 640;
+					case 2 -> 1000;
+					case 3 -> 1600;
+					default -> -1;
+				};
+			}
+			case COBBLESTONE, OAK_LOG, DIRT -> {
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 640;
+					case 1 -> 1280;
+					case 2 -> 2000;
+					case 3 -> 5000;
+					case 4 -> 20000;
+					case 5 -> 50000;
+					default -> -1;
+				};
+			}
+			case COAL, SPRUCE_LOG, SAND -> {
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 480;
+					case 1 -> 960;
+					case 2 -> 2000;
+					case 3 -> 5000;
+					case 4 -> 20000;
+					case 5 -> 50000;
+					default -> -1;
+				};
+			}
+			case RAW_COPPER, REDSTONE, LAPIS_LAZULI -> {
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 320;
+					case 1 -> 640;
+					case 2 -> 1280;
+					case 3 -> 2000;
+					case 4 -> 5000;
+					case 5 -> 20000;
+					default -> -1;
+				};
+			}
+			case RAW_IRON, DARK_OAK_LOG, RED_SAND -> {
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 240;
+					case 1 -> 480;
+					case 2 -> 960;
+					case 3 -> 2000;
+					case 4 -> 5000;
+					case 5 -> 20000;
+					default -> -1;
+				};
+			}
+			case RAW_GOLD, QUARTZ, ACACIA_LOG, JUNGLE_LOG, BIRCH_LOG, PALE_OAK_LOG, MUD, GRAVEL, CLAY -> {
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 160;
+					case 1 -> 320;
+					case 2 -> 640;
+					case 3 -> 1280;
+					case 4 -> 2000;
+					case 5 -> 5000;
+					default -> -1;
+				};
+			}
+			case DIAMOND -> {
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 32;
+					case 1 -> 64;
+					case 2 -> 128;
+					case 3 -> 320;
+					case 4 -> 640;
+					case 5 -> 1280;
+					default -> -1;
+				};
+			}
+			case EMERALD, CRIMSON_STEM, WARPED_STEM, SNOW_BLOCK -> {
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 16;
+					case 1 -> 32;
+					case 2 -> 64;
+					case 3 -> 128;
+					case 4 -> 320;
+					case 5 -> 640;
+					default -> -1;
+				};
+			}
+			case AMEYTHST_SHARD, CHERRY_LOG, MANGROVE_LOG, MOSS_BLOCK, PALE_MOSS_BLOCK -> {
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 64;
+					case 1 -> 128;
+					case 2 -> 320;
+					case 3 -> 640;
+					case 4 -> 1280;
+					case 5 -> 2000;
+					default -> -1;
+				};
+			}
+			case ANCIENT_DEBRIS, BAMBOO_BLOCK -> {
+				return switch (categoryUnlockCount)
+				{
+					case 0 -> 2;
+					case 1 -> 4;
+					case 2 -> 10;
+					case 3 -> 32;
+					case 4 -> 64;
+					case 5 -> 128;
+					default -> -1;
+				};
+			}
+		}
+		return -1;
 	}
 }

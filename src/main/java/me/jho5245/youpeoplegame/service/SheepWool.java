@@ -98,7 +98,7 @@ public class SheepWool extends SchedulerService
 	private long getCooldown(PlayerShearEntityEvent event)
 	{
 		int cooldown = Method.random(80, 100);
-		int skillLevel = UserData.getInt(event.getPlayer(), UserData.CUSTOM_DATA.getKey() + ".YouPeopleGame.skillLevel");
+		int skillLevel = UserData.getInt(event.getPlayer(), "YouPeopleGame.skillLevel");
 		cooldown -= skillLevel * 5;
 		MessageUtil.broadcastDebug(cooldown);
 		return Math.max(1, cooldown);

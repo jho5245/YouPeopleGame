@@ -3,10 +3,7 @@ package me.jho5245.youpeoplegame;
 import com.jho5245.cucumbery.util.no_groups.CucumberyCommandExecutor;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import io.papermc.paper.plugin.configuration.PluginMeta;
-import me.jho5245.youpeoplegame.command.GUICommand;
-import me.jho5245.youpeoplegame.command.ParkourGiveUp;
-import me.jho5245.youpeoplegame.command.SackCommand;
-import me.jho5245.youpeoplegame.command.TestCommand;
+import me.jho5245.youpeoplegame.command.*;
 import me.jho5245.youpeoplegame.listener.*;
 import me.jho5245.youpeoplegame.listener.inventory.CraftItem;
 import me.jho5245.youpeoplegame.listener.inventory.InventoryClick;
@@ -38,8 +35,6 @@ public class YouPeopleGame extends JavaPlugin
 	{
 		return plugin;
 	}
-
-	public static final Location SPAWN_LOCATION = new Location(Bukkit.getWorld("youpeople_world"), 0, 64, 0);
 
 	private String pluginName;
 
@@ -96,6 +91,7 @@ public class YouPeopleGame extends JavaPlugin
 		registerCommand("youpeoplegame", new GUICommand());
 		registerCommand("giveup", ParkourGiveUp.get());
 		registerCommand("gfs", new SackCommand());
+		registerCommand("backpack", new BackpackCommand());
 	}
 
 	private void registerCommand(String command, CucumberyCommandExecutor executor)

@@ -100,17 +100,33 @@ public class UnlockBuffItems
 		Category category = Category.getByCustomMaterial(customMaterial);
 		if (category != null)
 		{
-			if (hand != null) player.swingHand(hand);
-			item.setAmount(item.getAmount() - 1);
+			if (hand != null)
+				player.swingHand(hand);
+			boolean upradedAtOnce = false;
 			UserData.set(player, YouPeopleGameUserData.SACK_USED, true);
 			SackManager sackManager = SackManager.get();
 			List<SackElement> sackElements = SackElement.getElementsByCategory(category);
-			sackElements.forEach(sackElement ->
+			for (SackElement sackElement : sackElements)
 			{
-				sackManager.setMaxAmount(player, sackElement, sackManager.getMaxAmount(player, sackElement) + 100);
-				int maxAmount = sackManager.getMaxAmount(player, sackElement);
-				MessageUtil.info(player, "%s을(를) 보관할 수 있는 공간이 100칸 늘어났습니다. (현재 최대 %s칸)", sackElement.getItemStack(), maxAmount);
-			});
+				int nextMaxAmount = sackManager.getNextMaxAmount(player, sackElement);
+				int previousMaxAmount = sackManager.getMaxAmount(player, sackElement);
+				if (nextMaxAmount == -1)
+				{
+					continue;
+				}
+				upradedAtOnce = true;
+				sackManager.setMaxAmount(player, sackElement, nextMaxAmount);
+				MessageUtil.info(player, "%s을(를) 보관할 수 있는 공간이 늘어났습니다. (%s칸 -> %s칸)", sackElement.getItemStack(), previousMaxAmount, nextMaxAmount);
+			}
+			if (upradedAtOnce)
+			{
+				sackManager.setCategoryUnlockCount(player, category, sackManager.getCategoryUnlockCount(player, category) + 1);
+				item.setAmount(item.getAmount() - 1);
+			}
+			else
+			{
+				MessageUtil.sendWarn(player, "이미 모든 아이템의 보관함이 최대로 확장되어 더 이상 사용할 수 없습니다.");
+			}
 		}
 	}
 }

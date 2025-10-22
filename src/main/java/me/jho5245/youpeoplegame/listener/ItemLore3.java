@@ -84,6 +84,10 @@ public class ItemLore3 implements Listener
 			{
 				lore.add(ComponentUtil.translate("&7바삭한 쿠키로 만든 삽이다."));
 			}
+			case YOUPEOPLEGAME_CRISPY_COOKIE_SWORD ->
+			{
+				lore.add(ComponentUtil.translate("&7바삭한 쿠키로 만든 검이다."));
+			}
 			case YOUPEOPLEGAME_CRISPY_COOKIE_BOX ->
 			{
 				lore.add(ComponentUtil.translate("&7바삭한 쿠키가 1셋트 들어있는 박스다."));
@@ -181,6 +185,26 @@ public class ItemLore3 implements Listener
 			{
 				lore.add(ComponentUtil.translate("&7정체불명의 광물을 오랫동안 구워서 가공하였다."));
 			}
+			case YOUPEOPLEGAME_CORRUPTED_MATTER ->
+			{
+				lore.add(ComponentUtil.translate("&7진홍빛 자루에서 추출하여 가져온 오염물질이다."));
+			}
+			case YOUPEOPLEGAME_CHAOS_MATTER ->
+			{
+				lore.add(ComponentUtil.translate("&7뒤틀린 자루에서 추출하여 가져온 혼돈물질이다."));
+			}
+			case YOUPEOPLEGAME_SPIRIT_MATTER ->
+			{
+				lore.add(ComponentUtil.translate("&7숨어있는 정령을 마력으로 끌어들여 얻은 물질이다."));
+			}
+			case YOUPEOPLEGAME_DIRT_PILE, YOUPEOPLEGAME_MUD_PILE, YOUPEOPLEGAME_GRAVEL_PILE, YOUPEOPLEGAME_SNOW_PILE ->
+			{
+				lore.add(ComponentUtil.translate("&7%s이다.", customMaterial.getDisplayName().color(null)));
+			}
+			case YOUPEOPLEGAME_RED_SAND_PILE, YOUPEOPLEGAME_CLAY_PILE, YOUPEOPLEGAME_MOSS_PILE, YOUPEOPLEGAME_PALE_MOSS_PILE ->
+			{
+				lore.add(ComponentUtil.translate("&7%s다.", customMaterial.getDisplayName().color(null)));
+			}
 			case null, default ->
 			{
 			}
@@ -207,7 +231,7 @@ public class ItemLore3 implements Listener
 			for (Pair<Object, Integer> pair : fromObject)
 			{
 				int amount = pair.getRight();
-				s = s.append("%s %s개, ");
+				s.append("%s %s개, ");
 				Component fromDisplay = switch (pair.getLeft())
 				{
 					case Material material -> ItemNameUtil.itemName(material);
@@ -223,6 +247,8 @@ public class ItemLore3 implements Listener
 			lore.add(ComponentUtil.translate("&f즉시 %s %s개로 바꿀 수 있다.", displayName, toAmount));
 		}
 
+		boolean canToggle = player != null && TOGGLE_ITEM_LORE_ALLOWED_INVENTORY.contains(player.getOpenInventory().getType());
+
 		// Sack
 		{
 			Category category = Category.getByCustomMaterial(customMaterial);
@@ -233,95 +259,84 @@ public class ItemLore3 implements Listener
 				lore.add(ComponentUtil.translate("&7무언가 보관할 수 있을것 같은 힘(?)이 느껴진다."));
 				lore.add(Component.empty());
 				lore.add(ComponentUtil.translate("&f손에 들고 %s 키를 눌러 사용하면", Component.keybind("key.use", NamedTextColor.YELLOW)));
-				lore.add(ComponentUtil.translate("&f다음 목록에 있는 아이템의 최대 보관 용량이 100 증가한다.", Component.keybind("key.use", NamedTextColor.YELLOW)));
+				lore.add(ComponentUtil.translate("&f다음 목록에 있는 아이템의 최대 보관 용량이 증가한다.", Component.keybind("key.use", NamedTextColor.YELLOW)));
+				lore.add(ComponentUtil.translate("&f사용한 횟수가 누적될 수록 더 넓게 증가한다."));
 				lore.add(ComponentUtil.translate("&f한 번 사용하면 사라진다.", Component.keybind("key.use", NamedTextColor.YELLOW)));
 				lore.add(Component.empty());
-				for (int i = 0; i < sackElements.size(); i += 4)
+				for (int i = 0; i < sackElements.size(); i += 2)
 				{
 					StringBuilder builder = new StringBuilder();
 					List<Component> arguments = new ArrayList<>();
-					for (int j = i; j < Math.min(i + 4, sackElements.size()); j++)
+					for (int j = i; j < Math.min(i + 2, sackElements.size()); j++)
 					{
-						builder.append("%s, ");
-						Component itemStackNameComponent = sackElements.get(j).getItemStackNameComponent();
+						SackElement sackElement = sackElements.get(j);
+						Component itemStackNameComponent = sackElement.getItemStackNameComponent();
 						if (itemStackNameComponent.color() == null)
 							itemStackNameComponent = itemStackNameComponent.color(NamedTextColor.GREEN);
 						arguments.add(itemStackNameComponent);
+						if (player != null)
+						{
+							int currentMaxAmount = SackManager.get().getMaxAmount(player, sackElement);
+							int nextMaxAmount = SackManager.get().getNextMaxAmount(player, sackElement);
+							boolean isMax = nextMaxAmount == -1;
+							if (!isMax)
+								arguments.add(ComponentUtil.create(player, currentMaxAmount));
+							arguments.add(ComponentUtil.create(player, isMax ? "&c최고 레벨" : nextMaxAmount));
+							builder.append(isMax ? "%s(%s), " : "%s(%s -> %s), ");
+						}
+						else
+						{
+							builder.append("%s, ");
+						}
 					}
-					String key = builder.substring(0, builder.length() - 2);
-					lore.add(ComponentUtil.translate("&7" + key).arguments(arguments));
+					lore.add(ComponentUtil.translate("&7" + builder.substring(0, builder.length() - 2)).arguments(arguments));
 				}
 
-				lore.add(Component.empty());
 				boolean hasUsedSack = player != null && UserData.getBoolean(player, YouPeopleGameUserData.SACK_USED);
 				if (hasUsedSack)
 				{
-					boolean condition = TOGGLE_ITEM_LORE_ALLOWED_INVENTORY.contains(player.getOpenInventory().getType());
-					if (condition)
+					if (UserData.getBoolean(player, YouPeopleGameUserData.SACK_SHOW_CAPACITY_INFO))
 					{
-						if (UserData.getBoolean(player, YouPeopleGameUserData.SACK_AUTO_FILL))
+						lore.add(Component.empty());
+						lore.add(ComponentUtil.translate("&e[현재 보관 용량 정보]" + (canToggle ? " %s" : ""), "&8(8번 키로 줄이기) ▼"));
+						for (SackElement sackElement : sackElements)
 						{
-							lore.add(ComponentUtil.translate("&f자동 보관 : %s %s", "&a켜짐", "&8[8번 키로 끄기]"));
-						}
-						else
-						{
-							lore.add(ComponentUtil.translate("&f자동 보관 : %s %s", "&c꺼짐", "&8[8번 키로 켜기]"));
+							int amount = SackManager.get().getAmount(player, sackElement), maxAmount = SackManager.get().getMaxAmount(player, sackElement);
+							lore.add(ComponentUtil.translate("&f%s : %s / %s", sackElement.getItemStackNameComponent(), amount, maxAmount));
 						}
 
 					}
-					else
+					else if (canToggle)
 					{
-						if (UserData.getBoolean(player, YouPeopleGameUserData.SACK_AUTO_FILL))
-						{
-							lore.add(ComponentUtil.translate("&f자동 보관 : %s", "&a켜짐"));
-						}
-						else
-						{
-							lore.add(ComponentUtil.translate("&f자동 보관 : %s", "&c꺼짐"));
-						}
+						lore.add(Component.empty());
+						lore.add(ComponentUtil.translate("&e[현재 보관 용량 정보] %s", "&8(8번 키로 펼치기) ▶"));
 					}
-					lore.add(ComponentUtil.translate("&7자동 보관 기능을 사용하면"));
-					lore.add(ComponentUtil.translate("&7블록을 부수거나 몹을 잡을 때 얻는 아이템이"));
-					lore.add(ComponentUtil.translate("&7자동으로 보관함에 보관됩니다."));
-					lore.add(ComponentUtil.translate("&7단, 보관함이 가득 차면 보관되지 않고"));
-					lore.add(ComponentUtil.translate("&7기존 획득 경로(인벤토리)에 보관됩니다."));
-					lore.add(Component.empty());
-					lore.add(ComponentUtil.translate("&e[현재 보관 용량 정보]"));
-					for (SackElement sackElement : sackElements)
-					{
-						int amount = SackManager.get().getAmount(player, sackElement), maxAmount = SackManager.get().getMaxAmount(player, sackElement);
-						lore.add(ComponentUtil.translate("&f%s : %s / %s", sackElement.getItemStackNameComponent(), amount, maxAmount));
-					}
+
 				}
-				else
-				{
-					lore.add(ComponentUtil.translate("&7사용 후 %s 명령어를 통해 아이템을 보관하거나 꺼낼 수 있다.", "&e/gfs 또는 /보관함"));
-					lore.add(ComponentUtil.translate("&7보관함에 넣을 수 없는 아이템이거나,"));
-					lore.add(ComponentUtil.translate("&7보관함이 가득찼을 경우 더 이상 아이템을 보관할 수 없다."));
-					lore.add(Component.empty());
-					lore.add(ComponentUtil.translate("&b[명령어 모음]"));
-					lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs", "&f1개 이상 보관 중인 모든 아이템의 보관 상태를 나열한다."));
-					lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs show [카테고리]", "&f해당하는 카테고리의 모든 아이템의 보관 상태를 나열한다."));
-					lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs store", "&f손에 들고 있는 아이템을 하나 보관한다."));
-					lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs store <아이템 이름> [개수]", "&f해당하는 아이템을 개수만큼 혹은 1개 보관한다."));
-					lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs get", "&f손에 들고 있는 아이템과 동일한 아이템을 하나 꺼낸다."));
-					lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs get <아이템 이름> [개수]", "&f해당하는 아이템을 개수만큼 혹은 1개 꺼낸다."));
-				}
+				lore.add(Component.empty());
+				lore.add(ComponentUtil.translate("&7사용 후 %s 명령어로 보관함 메뉴를 열 수 있다.", "&e/gfs 또는 /보관함"));
+				lore.add(Component.empty());
+				lore.add(ComponentUtil.translate("&b[명령어 모음]"));
+				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs", "&f보관함 메뉴를 연다."));
+				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs show [카테고리]", "&f해당하는 카테고리의 모든 아이템의 보관 상태를 나열한다."));
+				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs store", "&f손에 들고 있는 아이템을 하나 보관한다."));
+				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs store <아이템 이름> [개수]", "&f해당하는 아이템을 개수만큼 혹은 1개 보관한다."));
+				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs get", "&f손에 들고 있는 아이템과 동일한 아이템을 하나 꺼낸다."));
+				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs get <아이템 이름> [개수]", "&f해당하는 아이템을 개수만큼 혹은 1개 꺼낸다."));
 			}
 		}
 
 		if (!lore.isEmpty() && player != null)
 		{
-			boolean condition = TOGGLE_ITEM_LORE_ALLOWED_INVENTORY.contains(player.getOpenInventory().getType());
 			if (UserData.getBoolean(player, YouPeopleGameUserData.HIDE_ITEM_LORE_3))
 			{
-				if (condition)
+				lore.clear();
+				if (canToggle)
 				{
-					lore.clear();
 					lore.add(ComponentUtil.translate("&8[추가 설명] (9번 키로 펼치기) ▶"));
 				}
 			}
-			else if (condition)
+			else if (canToggle)
 			{
 				lore.addFirst(ComponentUtil.translate("&8[추가 설명] (9번 키로 줄이기) ▼"));
 			}

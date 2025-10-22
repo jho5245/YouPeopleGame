@@ -1,7 +1,6 @@
 package me.jho5245.youpeoplegame.listener.inventory;
 
 import me.jho5245.youpeoplegame.service.listener.GUI;
-import me.jho5245.youpeoplegame.service.listener.AutoSack;
 import me.jho5245.youpeoplegame.service.listener.ToggleItemLore;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +13,5 @@ public class InventoryClick implements Listener
 	{
 		GUI.get().listen(event);
 		ToggleItemLore.get().listen(event);
-		AutoSack.get().listen(event);
 	}
 }

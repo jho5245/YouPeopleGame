@@ -1,6 +1,7 @@
 package me.jho5245.youpeoplegame.command;
 
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent.Completion;
+import com.jho5245.cucumbery.util.no_groups.CommandArgumentUtil;
 import com.jho5245.cucumbery.util.no_groups.CommandTabUtil;
 import com.jho5245.cucumbery.util.no_groups.CucumberyCommandExecutor;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
@@ -9,9 +10,15 @@ import com.jho5245.cucumbery.util.storage.component.util.ItemNameUtil;
 import com.jho5245.cucumbery.util.storage.data.Constant;
 import com.jho5245.cucumbery.util.storage.data.Prefix;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
+import me.jho5245.youpeoplegame.service.listener.GUI;
 import me.jho5245.youpeoplegame.util.SackManager;
 import me.jho5245.youpeoplegame.util.SackManager.SackElement;
 import me.jho5245.youpeoplegame.util.SackManager.SackElement.Category;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.util.HSVLike;
 import org.bukkit.Location;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
@@ -42,7 +49,7 @@ public class SackCommand implements CucumberyCommandExecutor
 		{
 			case 1 ->
 			{
-				return CommandTabUtil.tabCompleterList(args, "<인자>", false, "get", "store", "show");
+				return CommandTabUtil.tabCompleterList(args, "<인자>", false, "get", "store", "show", "open");
 			}
 			case 2 ->
 			{
@@ -55,10 +62,10 @@ public class SackCommand implements CucumberyCommandExecutor
 						return CommandTabUtil.sortError(CommandTabUtil.tabCompleterList(args, "<아이템>", false, "--hand"),
 								CommandTabUtil.tabCompleterList(args, list, "<아이템>"));
 					}
-					case "show" ->
+					case "show", "open" ->
 					{
-						List<Completion> list = CommandTabUtil.tabCompleterList(args, Category.values(), "<보관함 유형>");
-						List<Completion> list2 = CommandTabUtil.tabCompleterList(args, "<보관함 유형>", false, "--all");
+						List<Completion> list = CommandTabUtil.tabCompleterList(args, Arrays.stream(Category.values()).filter(c -> !c.isHiddenEnum()).map(Category::getName).toList(), "<보관함 유형>");
+						List<Completion> list2 = CommandTabUtil.tabCompleterList(args, "<보관함 유형>", false, args[0].equals("show") ? "--all" : "");
 						return CommandTabUtil.sortError(list, list2);
 					}
 				}
@@ -112,13 +119,13 @@ public class SackCommand implements CucumberyCommandExecutor
 		}
 		if (args.length == 0)
 		{
-			player.performCommand("gfs show --all");
+			GUI.get().openSackGUI(player);
 			return true;
 		}
 		if (args[0].equals("show"))
 		{
-			String category = args.length > 1 && !args[1].equals("--all") ? args[1] : "";
-			Category categoryEnum = args.length > 1 && args[1].equals("--force") ? Category.FORCE : Category.getByName(category);
+			String argCategory = args.length > 1 && !args[1].equals("--all") ? args[1] : "";
+			Category categoryEnum = args.length > 1 && args[1].equals("--force") ? Category.FORCE : Category.getByName(argCategory);
 			MessageUtil.info(player, "현재 보관중인 아이템 목록 (%s)", categoryEnum != null ? categoryEnum.toString() : "전체");
 			for (SackElement sackElement : categoryEnum != null && categoryEnum != Category.FORCE
 					? SackElement.getElementsByCategory(categoryEnum) : Arrays.stream(SackElement.values()).toList())
@@ -131,6 +138,39 @@ public class SackCommand implements CucumberyCommandExecutor
 				MessageUtil.info(player, "%s - %s / %s", itemStack, amount, maxAmount);
 			}
 			MessageUtil.info(player, Constant.SEPARATOR);
+			MessageUtil.info(player, "GUI로 열기");
+			StringBuilder s = new StringBuilder();
+			List<Component> arguments = new ArrayList<>();
+			for (Category category : Category.values())
+			{
+				String clickCommand = "/gfs open '%s'".formatted(category.getName());
+				Component display = ComponentUtil.translate("클릭하여 %s 보관함 메뉴를 엽니다.", category.getName());
+				Component component = ComponentUtil.translate("[%s]", category.getName())
+						.color(TextColor.color(HSVLike.hsvLike(1f * category.ordinal() / Category.values().length, 1, 1)))
+						.hoverEvent(display)
+						.clickEvent(ClickEvent.runCommand(clickCommand));
+				s.append("%s ");
+				arguments.add(component);
+			}
+			MessageUtil.info(player, s.substring(0, s.length() - 1), arguments);
+			return true;
+		}
+		if (args[0].equals("open"))
+		{
+			if (args.length == 1)
+			{
+				String usage = command.getUsage().replace("/<command> ", "");
+				MessageUtil.sendError(sender, Prefix.ARGS_SHORT);
+				MessageUtil.commandInfo(sender, label, usage);
+				return true;
+			}
+			Category category = Category.getByName(args[1]);
+			if (category == null)
+			{
+				MessageUtil.sendError(sender, Prefix.NO_KEY, args[1]);
+				return true;
+			}
+			GUI.get().openSackGUI(player, category);
 			return true;
 		}
 		if (args.length > 3)

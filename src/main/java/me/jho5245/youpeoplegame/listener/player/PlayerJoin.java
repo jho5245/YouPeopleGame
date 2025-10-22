@@ -6,6 +6,7 @@ import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import me.jho5245.youpeoplegame.YouPeopleGame;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +14,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerJoin implements Listener
 {
+	Location SPAWN_LOCATION = new Location(Bukkit.getWorld("youpeople_world"), 0, 64, 0);
+
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
@@ -26,7 +29,7 @@ public class PlayerJoin implements Listener
 		}
 		if (!player.hasPermission("youpeoplegame.admin"))
 		{
-			player.teleport(YouPeopleGame.SPAWN_LOCATION);
+			player.teleport(SPAWN_LOCATION);
 		}
 //		player.setResourcePack("https://github.com/jho5245/YouPeopleGame-Resourcepack/archive/refs/heads/main.zip", null, Component.text("다운받아라"), true);
 
