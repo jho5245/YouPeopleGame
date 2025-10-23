@@ -17,6 +17,7 @@ import me.jho5245.youpeoplegame.listener.player.*;
 import me.jho5245.youpeoplegame.service.SheepWool;
 import me.jho5245.youpeoplegame.service.scheduler.CookieGiveawayEveryNSeconds;
 import me.jho5245.youpeoplegame.service.scheduler.SchedulerService;
+import me.jho5245.youpeoplegame.service.scheduler.SpeedModifierSerivce;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.PluginCommand;
@@ -120,6 +121,7 @@ public class YouPeopleGame extends JavaPlugin
 	{
 		services.add(new CookieGiveawayEveryNSeconds());
 		services.add(SheepWool.get());
+		services.add(SpeedModifierSerivce.get());
 		services.forEach(SchedulerService::run);
 	}
 
