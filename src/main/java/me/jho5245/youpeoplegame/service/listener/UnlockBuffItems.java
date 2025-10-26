@@ -103,7 +103,7 @@ public class UnlockBuffItems
 			if (hand != null)
 				player.swingHand(hand);
 			boolean upradedAtOnce = false;
-			UserData.set(player, YouPeopleGameUserData.SACK_USED, true);
+			UserData.set(player, YouPeopleGameUserData.MATERIAL_STORAGE_USED, true);
 			SackManager sackManager = SackManager.get();
 			List<SackElement> sackElements = SackElement.getElementsByCategory(category);
 			for (SackElement sackElement : sackElements)
@@ -125,7 +125,7 @@ public class UnlockBuffItems
 			}
 			else
 			{
-				MessageUtil.sendWarn(player, "이미 모든 아이템의 보관함이 최대로 확장되어 더 이상 사용할 수 없습니다.");
+				MessageUtil.sendWarn(player, "이미 모든 재료의 공간이 최대로 확장되어 더 이상 사용할 수 없습니다.");
 			}
 		}
 	}

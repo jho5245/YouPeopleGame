@@ -292,10 +292,10 @@ public class ItemLore3 implements Listener
 					lore.add(ComponentUtil.translate("&7" + builder.substring(0, builder.length() - 2)).arguments(arguments));
 				}
 
-				boolean hasUsedSack = player != null && UserData.getBoolean(player, YouPeopleGameUserData.SACK_USED);
+				boolean hasUsedSack = player != null && UserData.getBoolean(player, YouPeopleGameUserData.MATERIAL_STORAGE_USED);
 				if (hasUsedSack)
 				{
-					if (UserData.getBoolean(player, YouPeopleGameUserData.SACK_SHOW_CAPACITY_INFO))
+					if (UserData.getBoolean(player, YouPeopleGameUserData.MATERIAL_STORAGE_SHOW_CAPACITY_INFO))
 					{
 						lore.add(Component.empty());
 						lore.add(ComponentUtil.translate("&e[현재 보관 용량 정보]" + (canToggle ? " %s" : ""), "&8(8번 키로 줄이기) ▼"));
@@ -314,10 +314,10 @@ public class ItemLore3 implements Listener
 
 				}
 				lore.add(Component.empty());
-				lore.add(ComponentUtil.translate("&7사용 후 %s 명령어로 보관함 메뉴를 열 수 있다.", "&e/gfs 또는 /보관함"));
+				lore.add(ComponentUtil.translate("&7사용 후 %s 명령어로 재료 가방 메뉴를 열 수 있다.", "&e/gfs 또는 /재료가방"));
 				lore.add(Component.empty());
 				lore.add(ComponentUtil.translate("&b[명령어 모음]"));
-				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs", "&f보관함 메뉴를 연다."));
+				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs", "&f재료 가방 메뉴를 연다."));
 				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs show [카테고리]", "&f해당하는 카테고리의 모든 아이템의 보관 상태를 나열한다."));
 				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs store", "&f손에 들고 있는 아이템을 하나 보관한다."));
 				lore.add(ComponentUtil.translate("&7%s - %s", "&e/gfs store <아이템 이름> [개수]", "&f해당하는 아이템을 개수만큼 혹은 1개 보관한다."));

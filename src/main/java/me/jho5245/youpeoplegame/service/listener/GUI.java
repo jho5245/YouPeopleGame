@@ -23,10 +23,8 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 
 import java.util.ArrayList;
@@ -102,12 +100,12 @@ public class GUI
 			// 자동 보관 기능 토글
 			if (slot == clickedInventory.getSize() - 8)
 			{
-				UserData.setToggle(player, YouPeopleGameUserData.SACK_AUTO_FILL);
+				UserData.setToggle(player, YouPeopleGameUserData.MATERIAL_STORAGE_AUTO_FILL);
 			}
 			// 보관한 용량 정보 표시 토글
 			if (slot == clickedInventory.getSize() - 9)
 			{
-				UserData.setToggle(player, YouPeopleGameUserData.SACK_SHOW_CAPACITY_INFO);
+				UserData.setToggle(player, YouPeopleGameUserData.MATERIAL_STORAGE_SHOW_CAPACITY_INFO);
 			}
 			if (category == null)
 			{
@@ -259,7 +257,7 @@ public class GUI
 		putAllData.setStrings(List.of("youpeoplegame_gui_sack_put_all"));
 		putAllMeta.setCustomModelDataComponent(putAllData);
 		putAllMeta.displayName(ComponentUtil.translate("&e전부 넣기"));
-		putAllMeta.lore(List.of(ComponentUtil.translate("&7가지고 있는 아이템을"), ComponentUtil.translate("&7전부 보관함에 넣습니다.")));
+		putAllMeta.lore(List.of(ComponentUtil.translate("&7가지고 있는 아이템을"), ComponentUtil.translate("&7전부 재료 가방에 넣습니다.")));
 		putAll.setItemMeta(putAllMeta);
 	}
 
@@ -272,13 +270,13 @@ public class GUI
 		dataComponent.setStrings(List.of("youpeoplegame_gui_sack_back_to_menu"));
 		itemMeta.setCustomModelDataComponent(dataComponent);
 		itemMeta.displayName(ComponentUtil.translate("&b처음 화면으로"));
-		itemMeta.lore(List.of(ComponentUtil.translate("&7보관함 목록으로 돌아갑니다.")));
+		itemMeta.lore(List.of(ComponentUtil.translate("&7재료 가방 목록으로 돌아갑니다.")));
 		backToMenu.setItemMeta(itemMeta);
 	}
 
 	public void openSackGUI(Player player)
 	{
-		Inventory inventory = GUIManager.create(3, ComponentUtil.translate("보관함"), SACK_GUI_KEY);
+		Inventory inventory = GUIManager.create(3, ComponentUtil.translate("재료 가방"), SACK_GUI_KEY);
 		for (Category category : Category.values())
 		{
 			if (category.isHiddenEnum())
@@ -299,7 +297,7 @@ public class GUI
 				lore.add(ComponentUtil.translate("&7%s - %s / %s", element.getItemStackNameComponent(), currentAmount, maxAmount));
 			}
 			lore.add(Component.empty());
-			lore.add(ComponentUtil.translate("&e클릭하여 %s 보관함 열기", category.getName()));
+			lore.add(ComponentUtil.translate("&e클릭하여 %s 재료 가방 열기", category.getName()));
 			meta.lore(lore);
 			displayItem.setItemMeta(meta);
 
@@ -313,7 +311,7 @@ public class GUI
 		setFooter(player, inventory);
 		if (inventory.getItem(0) == null)
 		{
-			MessageUtil.sendWarn(player, "아직 해금한 보관함이 없습니다.");
+			MessageUtil.sendWarn(player, "아직 해금한 재료 가방이 없습니다.");
 			return;
 		}
 		player.openInventory(inventory);
@@ -331,14 +329,14 @@ public class GUI
 
 		ItemStack toggleAutoFill = new ItemStack(Material.HOPPER);
 		ItemMeta meta = toggleAutoFill.getItemMeta();
-		boolean using = UserData.getBoolean(player, YouPeopleGameUserData.SACK_AUTO_FILL);
+		boolean using = UserData.getBoolean(player, YouPeopleGameUserData.MATERIAL_STORAGE_AUTO_FILL);
 		meta.displayName(ComponentUtil.translate("&e자동 보관 기능 %s", using ?"&a[켜짐]" : "&c[꺼짐]"));
 		List<Component> lore = new ArrayList<>();
 		lore.add(Component.empty());
 		lore.add(ComponentUtil.translate("&7자동 보관 기능을 사용하면"));
 		lore.add(ComponentUtil.translate("&7블록을 부수거나 몹을 잡을 때 얻는 아이템이"));
-		lore.add(ComponentUtil.translate("&7자동으로 보관함에 보관됩니다."));
-		lore.add(ComponentUtil.translate("&7단, 보관함이 가득 차면 보관되지 않고"));
+		lore.add(ComponentUtil.translate("&7자동으로 재료 가방에 보관됩니다."));
+		lore.add(ComponentUtil.translate("&7단, 재료 가방이 가득 차면 보관되지 않고"));
 		lore.add(ComponentUtil.translate("&7기존 획득 경로(인벤토리)에 보관됩니다."));
 		lore.add(ComponentUtil.translate("&e단, 일부 경로로 획득한 아이템은 자동으로"));
 		lore.add(ComponentUtil.translate("&e보관되지 않습니다.(잠수로 획득한 쿠키, 점프맵의 메달 등)"));
@@ -350,7 +348,7 @@ public class GUI
 
 		ItemStack toggleTool = new ItemStack(Material.BIRCH_SIGN);
 		ItemMeta toolItemMeta = toggleTool.getItemMeta();
-		boolean toolUsing = UserData.getBoolean(player, YouPeopleGameUserData.SACK_SHOW_CAPACITY_INFO);
+		boolean toolUsing = UserData.getBoolean(player, YouPeopleGameUserData.MATERIAL_STORAGE_SHOW_CAPACITY_INFO);
 		toolItemMeta.displayName(ComponentUtil.translate("&e주머니 확장 아이템의 보관 용량 정보 표시 %s", toolUsing ? "&a[켜짐]" : "&c[꺼짐]"));
 		List<Component> toolLore = new ArrayList<>();
 		toolLore.add(Component.empty());
@@ -366,7 +364,7 @@ public class GUI
 
 	public void openSackGUI(Player player, Category category)
 	{
-		Inventory inventory = GUIManager.create(6, ComponentUtil.translate("%s 보관함", category.getName()), SACK_GUI_KEY + category);
+		Inventory inventory = GUIManager.create(6, ComponentUtil.translate("%s 재료 가방", category.getName()), SACK_GUI_KEY + category);
 		List<SackElement> sackElements = SackElement.getElementsByCategory(category);
 		for (SackElement sackElement : sackElements)
 		{

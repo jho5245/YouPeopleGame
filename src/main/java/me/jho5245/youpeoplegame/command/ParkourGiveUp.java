@@ -25,11 +25,12 @@ public class ParkourGiveUp implements CucumberyCommandExecutor
 
 	private final HashMap<Player, String> giveUpCommandHash = new HashMap<>();
 
-	private final Location lobbyLocation;
+	private final Location lobbyLocation, gooriLobbyLocation;
 
 	private ParkourGiveUp()
 	{
 		lobbyLocation = new Location(Bukkit.getWorld("youpeople_world"), 85, 65, -0.5, -90, 0);
+		gooriLobbyLocation = new Location(Bukkit.getWorld("youpeople_world"), -12.5, 65, -171.5, 0, 0);
 	}
 
 	public static ParkourGiveUp get()
@@ -67,7 +68,15 @@ public class ParkourGiveUp implements CucumberyCommandExecutor
 		if (player.getScoreboardTags().contains("playing_parkour") && giveUpCommandHash.getOrDefault(player, "").equals(commandHash))
 		{
 			giveUpCommandHash.remove(player);
-			player.teleport(lobbyLocation);
+			if (player.getScoreboardTags().contains("playing_goori_parkour"))
+			{
+				player.teleport(gooriLobbyLocation);
+			}
+			else
+			{
+
+				player.teleport(lobbyLocation);
+			}
 			MessageUtil.info(player, "포기했습니다람쥐썬더!!!!!!");
 			player.getScoreboardTags().remove("playing_parkour");
 		}

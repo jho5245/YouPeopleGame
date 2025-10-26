@@ -51,7 +51,7 @@ public class ToggleItemLore
 						{
 							return;
 						}
-						UserData.setToggle(player, YouPeopleGameUserData.SACK_SHOW_CAPACITY_INFO);
+						UserData.setToggle(player, YouPeopleGameUserData.MATERIAL_STORAGE_SHOW_CAPACITY_INFO);
 						success = true;
 					}
 					case 8 ->

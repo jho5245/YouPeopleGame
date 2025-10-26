@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.List;
 
-public class BackpackCommand implements CucumberyCommandExecutor
+public class ItemStorageCommand implements CucumberyCommandExecutor
 {
 	@Override
 	public @NotNull List<Completion> completion(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args,
@@ -27,7 +27,7 @@ public class BackpackCommand implements CucumberyCommandExecutor
 		;
 		if (args.length == 1)
 		{
-			return CommandTabUtil.tabCompleterIntegerRadius(args, 1, UserData.getInt(player, YouPeopleGameUserData.BACKBACK_UNLOCKED_INDEX) + 1, "<가방 번호>");
+			return CommandTabUtil.tabCompleterIntegerRadius(args, 1, UserData.getInt(player, YouPeopleGameUserData.ITEM_STORAGE_UNLOCKED_INDEX) + 1, "<아이템 가방 번호>");
 		}
 		return Collections.emptyList();
 	}
@@ -43,17 +43,17 @@ public class BackpackCommand implements CucumberyCommandExecutor
 			int index = Integer.parseInt(chestName) - 1;
 			if (index > 8 || index < 0)
 				throw new Exception();
-			int playerIndex = UserData.getInt(player, YouPeopleGameUserData.BACKBACK_UNLOCKED_INDEX);
+			int playerIndex = UserData.getInt(player, YouPeopleGameUserData.ITEM_STORAGE_UNLOCKED_INDEX);
 			if (playerIndex < index)
 			{
-				MessageUtil.sendError(player, "아직 해금되지 않은 가방입니다. 최대 %s번까지 사용 가능합니다.", playerIndex + 1);
+				MessageUtil.sendError(player, "아직 해금되지 않은 아이템 가방입니다. 최대 %s번까지 사용 가능합니다.", playerIndex + 1);
 				return true;
 			}
-			CommandVirtualChest.openChest(player, "%s번 가방".formatted(chestName));
+			CommandVirtualChest.openChest(player, "%s번 아이템 가방".formatted(chestName));
 		}
 		catch (Exception e)
 		{
-			MessageUtil.sendError(sender, "유효하지 않은 가방 번호입니다.");
+			MessageUtil.sendError(sender, "유효하지 않은 아이템 가방 번호입니다.");
 			return true;
 		}
 		return true;

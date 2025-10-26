@@ -255,7 +255,7 @@ public class SackManager
 				dataComponent.setStrings(List.of("youpeoplegame_gui_sack_category_" + this.name().toLowerCase()));
 				itemMeta.setCustomModelDataComponent(dataComponent);
 				itemMeta.setEnchantmentGlintOverride(false);
-				itemMeta.displayName(ComponentUtil.translate("&e%s 보관함", this.getName()));
+				itemMeta.displayName(ComponentUtil.translate("&e%s 재료 가방", this.getName()));
 				itemMeta.setItemModel(material.getKey());
 				itemStack.setItemMeta(itemMeta);
 				return itemStack;
@@ -265,7 +265,7 @@ public class SackManager
 
 	private String getPath(Category category)
 	{
-		return YouPeopleGameUserData.SACK_CONTENTS + "." + category;
+		return YouPeopleGameUserData.MATERIAL_STORAGE_CONTENTS + "." + category;
 	}
 
 	private String getPath(SackElement sackElement)
@@ -328,7 +328,7 @@ public class SackManager
 		}
 		playerInventory.removeItem(itemStack);
 		setAmount(player, element, amount + itemStackAmount);
-		MessageUtil.info(player, "보관함에 %s을(를) %s개 보관했습니다. (%s / %s)", itemStack, itemStackAmount, getAmount(player, element), getMaxAmount(player, element));
+		MessageUtil.info(player, "재료 가방에 %s을(를) %s개 보관했습니다. (%s / %s)", itemStack, itemStackAmount, getAmount(player, element), getMaxAmount(player, element));
 		return true;
 	}
 
@@ -342,7 +342,7 @@ public class SackManager
 		}
 		if (amount < itemStackAmount)
 		{
-			MessageUtil.sendError(player, "보관함에 아이템이 부족합니다. (%s / %s)", amount, getMaxAmount(player, element));
+			MessageUtil.sendError(player, "재료 가방에 아이템이 부족합니다. (%s / %s)", amount, getMaxAmount(player, element));
 			return false;
 		}
 		PlayerInventory playerInventory = player.getInventory();
@@ -355,7 +355,7 @@ public class SackManager
 		}
 		setAmount(player, element, amount - itemStackAmount);
 		AddItemUtil.addItem(player, itemStack);
-		MessageUtil.info(player, "보관함에서 %s을(를) %s개 꺼냈습니다. (%s / %s)", itemStack, itemStackAmount, getAmount(player, element), getMaxAmount(player, element));
+		MessageUtil.info(player, "재료 가방에서 %s을(를) %s개 꺼냈습니다. (%s / %s)", itemStack, itemStackAmount, getAmount(player, element), getMaxAmount(player, element));
 		return true;
 	}
 

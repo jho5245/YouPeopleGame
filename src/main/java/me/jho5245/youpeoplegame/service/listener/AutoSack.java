@@ -26,7 +26,7 @@ public class AutoSack
 	{
 		Player player = event.getPlayer();
 		Collection<ItemStack> drops = event.getDrops();
-		if (UserData.getBoolean(player, YouPeopleGameUserData.SACK_AUTO_FILL))
+		if (UserData.getBoolean(player, YouPeopleGameUserData.MATERIAL_STORAGE_AUTO_FILL))
 		{
 			Collection<ItemStack> newDrops = new ArrayList<>();
 			for (ItemStack drop : drops)

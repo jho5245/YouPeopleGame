@@ -1,7 +1,6 @@
 package me.jho5245.youpeoplegame.command;
 
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent.Completion;
-import com.jho5245.cucumbery.util.no_groups.CommandArgumentUtil;
 import com.jho5245.cucumbery.util.no_groups.CommandTabUtil;
 import com.jho5245.cucumbery.util.no_groups.CucumberyCommandExecutor;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
@@ -15,7 +14,6 @@ import me.jho5245.youpeoplegame.util.SackManager;
 import me.jho5245.youpeoplegame.util.SackManager.SackElement;
 import me.jho5245.youpeoplegame.util.SackManager.SackElement.Category;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.util.HSVLike;
@@ -32,7 +30,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SackCommand implements CucumberyCommandExecutor
+public class MaterialStorageCommand implements CucumberyCommandExecutor
 {
 	@Override
 	public @NotNull List<Completion> completion(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args,
@@ -64,8 +62,8 @@ public class SackCommand implements CucumberyCommandExecutor
 					}
 					case "show", "open" ->
 					{
-						List<Completion> list = CommandTabUtil.tabCompleterList(args, Arrays.stream(Category.values()).filter(c -> !c.isHiddenEnum()).map(Category::getName).toList(), "<보관함 유형>");
-						List<Completion> list2 = CommandTabUtil.tabCompleterList(args, "<보관함 유형>", false, args[0].equals("show") ? "--all" : "");
+						List<Completion> list = CommandTabUtil.tabCompleterList(args, Arrays.stream(Category.values()).filter(c -> !c.isHiddenEnum()).map(Category::getName).toList(), "<재료 가방 유형>");
+						List<Completion> list2 = CommandTabUtil.tabCompleterList(args, "<재료 가방 유형>", false, args[0].equals("show") ? "--all" : "");
 						return CommandTabUtil.sortError(list, list2);
 					}
 				}
@@ -143,8 +141,9 @@ public class SackCommand implements CucumberyCommandExecutor
 			List<Component> arguments = new ArrayList<>();
 			for (Category category : Category.values())
 			{
+				if (category.isHiddenEnum()) continue;
 				String clickCommand = "/gfs open '%s'".formatted(category.getName());
-				Component display = ComponentUtil.translate("클릭하여 %s 보관함 메뉴를 엽니다.", category.getName());
+				Component display = ComponentUtil.translate("클릭하여 %s 재료 가방 메뉴를 엽니다.", category.getName());
 				Component component = ComponentUtil.translate("[%s]", category.getName())
 						.color(TextColor.color(HSVLike.hsvLike(1f * category.ordinal() / Category.values().length, 1, 1)))
 						.hoverEvent(display)

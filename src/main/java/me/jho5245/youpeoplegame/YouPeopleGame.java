@@ -19,7 +19,6 @@ import me.jho5245.youpeoplegame.service.scheduler.CookieGiveawayEveryNSeconds;
 import me.jho5245.youpeoplegame.service.scheduler.SchedulerService;
 import me.jho5245.youpeoplegame.service.scheduler.SpeedModifierSerivce;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -91,8 +90,9 @@ public class YouPeopleGame extends JavaPlugin
 		registerCommand("testcommand2", new TestCommand());
 		registerCommand("youpeoplegame", new GUICommand());
 		registerCommand("giveup", ParkourGiveUp.get());
-		registerCommand("gfs", new SackCommand());
-		registerCommand("backpack", new BackpackCommand());
+		registerCommand("material-storage", new MaterialStorageCommand());
+		registerCommand("item-storage", new ItemStorageCommand());
+		registerCommand("buff", new BuffCommand());
 	}
 
 	private void registerCommand(String command, CucumberyCommandExecutor executor)

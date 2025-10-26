@@ -15,11 +15,15 @@ commands:
     aliases: [game, 게임, rpdla, ㅎ믇]
   giveup:
     description: 점프맵 포기 명령어
-  gfs:
-    description: 보관함 명령어
-    usage: /<command> <get|store> <아이템 이름> [개수]
-    aliases: [보관함, getfromsack, rkqkd, ckdrh, qhrhksgka]
-  backpack:
-    description: 가방 명령어
-    usage: /<command> [가방 번호]
-    aliases: [가방, rkqkd, bag]
+  material-storage:
+    description: 재료 가방 명령어
+    usage: /<command> <get|store|show> <아이템 이름> [개수]
+    aliases: [gfs, mst, mstorage, materialstorage, 재료-가방, 재료가방]
+  item-storage:
+    description: 아이템 가방 명령어
+    usage: /<command> [아이템 가방 번호]
+    aliases: [ist, itemstorage, istorage, 아이템-가방, 아이템가방]
+  buff:
+    description: 현재 버프 확인 명령어
+    usage: /<command>
+    aliases: [버프]

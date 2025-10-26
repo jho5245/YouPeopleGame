@@ -5,10 +5,7 @@ import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
-import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 
 import java.util.Arrays;
@@ -29,7 +26,7 @@ public class CancelActivity
 	}
 
 	private final Set<InventoryType> ALLOWED_INVENTORY_TYPES = new HashSet<>(
-			Arrays.asList(InventoryType.CHEST, InventoryType.CARTOGRAPHY, InventoryType.BARREL, InventoryType.MERCHANT));
+			Arrays.asList(InventoryType.SHULKER_BOX, InventoryType.CHEST, InventoryType.CARTOGRAPHY, InventoryType.BARREL, InventoryType.MERCHANT));
 
 	public void cancelActivity(Player player, Cancellable cancellable)
 	{
@@ -48,10 +45,19 @@ public class CancelActivity
 				if (!ALLOWED_INVENTORY_TYPES.contains(inventoryType) && player.getGameMode() != GameMode.CREATIVE)
 				{
 					event.setCancelled(true);
-					if (player.hasPermission("youpeoplegame.admin"))
-					{
-						MessageUtil.sendDebug(player, "열 수 없는 인벤토리");
-					}
+					MessageUtil.sendDebug(player, "열 수 없는 인벤토리");
+				}
+			}
+			case InventoryClickEvent event ->
+			{
+				Inventory inventory = event.getClickedInventory();
+				if (inventory == null)
+					return;
+				InventoryType inventoryType = inventory.getType();
+				if ((!ALLOWED_INVENTORY_TYPES.contains(inventoryType) || inventoryType == InventoryType.SHULKER_BOX) && player.getGameMode() != GameMode.CREATIVE)
+				{
+					event.setCancelled(true);
+					MessageUtil.sendDebug(player, "사용할 수 없는 인벤토리");
 				}
 			}
 			default ->
