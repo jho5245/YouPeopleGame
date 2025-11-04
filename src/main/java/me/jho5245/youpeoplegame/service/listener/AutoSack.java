@@ -15,7 +15,9 @@ public class AutoSack
 {
 	private static final AutoSack instance = new AutoSack();
 
-	private AutoSack(){}
+	private AutoSack()
+	{
+	}
 
 	public static AutoSack get()
 	{

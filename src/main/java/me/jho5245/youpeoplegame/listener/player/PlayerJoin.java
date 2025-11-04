@@ -2,7 +2,6 @@ package me.jho5245.youpeoplegame.listener.player;
 
 import com.jho5245.cucumbery.util.additemmanager.AddItemUtil;
 import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
-import com.jho5245.cucumbery.custom.custommaterial.CustomMaterial;
 import me.jho5245.youpeoplegame.YouPeopleGame;
 import me.jho5245.youpeoplegame.custommaterial.CustomMaterialYouPeopleGame;
 import net.kyori.adventure.title.Title;

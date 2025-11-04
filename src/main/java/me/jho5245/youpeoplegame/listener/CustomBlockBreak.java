@@ -119,7 +119,8 @@ public class CustomBlockBreak implements Listener
 			List<Location> locations = new ArrayList<>();
 			double miningSpread = UserData.getDouble(player, YouPeopleGameUserData.MINING_SPREAD, 0);
 			int max = (int) (miningSpread / 100) + 1;
-			if (Math.random() * 100 < miningSpread % 100) max++;
+			if (Math.random() * 100 < miningSpread % 100)
+				max++;
 			addLocation(locations, player, blockLocation, blockLocation, max);
 			locations.remove(blockLocation);
 			locations.forEach(location ->

@@ -1,10 +1,10 @@
 package me.jho5245.youpeoplegame.util;
 
+import com.jho5245.cucumbery.custom.custommaterial.CustomMaterial;
 import com.jho5245.cucumbery.util.additemmanager.AddItemUtil;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
 import com.jho5245.cucumbery.util.storage.component.util.ItemNameUtil;
-import com.jho5245.cucumbery.custom.custommaterial.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.data.EnumHideable;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
@@ -127,11 +127,6 @@ public class SackManager
 		public String getItemStackName()
 		{
 			return MessageUtil.stripColor(ComponentUtil.serialize(getItemStackNameComponent()));
-		}
-
-		public String getItemStackNameJson()
-		{
-			return ComponentUtil.serializeAsJson(getItemStackNameComponent());
 		}
 
 		public Category getCategory()

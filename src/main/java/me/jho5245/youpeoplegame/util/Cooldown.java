@@ -27,9 +27,4 @@ public class Cooldown
 	{
 		return this.current;
 	}
-
-	public boolean isOver()
-	{
-		return getCurrent() == 0;
-	}
 }

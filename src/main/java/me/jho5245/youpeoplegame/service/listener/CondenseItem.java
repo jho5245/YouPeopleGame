@@ -51,10 +51,7 @@ public class CondenseItem
 		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.MOSS_PILE, new CondenseMap(Material.MOSS_BLOCK));
 		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.PALE_MOSS_PILE, new CondenseMap(Material.PALE_MOSS_BLOCK));
 		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.SNOW_PILE, new CondenseMap(Material.SNOW_BLOCK));
-		CONDENSE_MAP.put(Material.GLASS_BOTTLE, new CondenseMap(List.of(
-				Pair.of(Material.SAND, 64),
-				Pair.of(CustomMaterialYouPeopleGame.BURNING_FIRE, 1)
-		)));
+		CONDENSE_MAP.put(Material.GLASS_BOTTLE, new CondenseMap(List.of(Pair.of(Material.SAND, 64), Pair.of(CustomMaterialYouPeopleGame.BURNING_FIRE, 1))));
 	}
 
 	public static CondenseItem get()
@@ -149,7 +146,7 @@ public class CondenseItem
 		{
 			case ItemStack itemStack -> itemStack;
 			case Material material -> new ItemStack(material, amount);
-			case CustomMaterial customMaterial -> customMaterial.create(amount, false);
+			case CustomMaterial customMaterial -> customMaterial.create(amount, true);
 			default ->
 			{
 				throw new IllegalArgumentException("Invalid from");

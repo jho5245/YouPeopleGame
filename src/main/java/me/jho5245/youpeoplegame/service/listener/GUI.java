@@ -330,7 +330,7 @@ public class GUI
 		ItemStack toggleAutoFill = new ItemStack(Material.HOPPER);
 		ItemMeta meta = toggleAutoFill.getItemMeta();
 		boolean using = UserData.getBoolean(player, YouPeopleGameUserData.MATERIAL_STORAGE_AUTO_FILL);
-		meta.displayName(ComponentUtil.translate("&e자동 보관 기능 %s", using ?"&a[켜짐]" : "&c[꺼짐]"));
+		meta.displayName(ComponentUtil.translate("&e자동 보관 기능 %s", using ? "&a[켜짐]" : "&c[꺼짐]"));
 		List<Component> lore = new ArrayList<>();
 		lore.add(Component.empty());
 		lore.add(ComponentUtil.translate("&7자동 보관 기능을 사용하면"));
@@ -369,7 +369,10 @@ public class GUI
 		for (SackElement sackElement : sackElements)
 		{
 			ItemStack itemStack = sackElement.getItemStack();
-			ItemLore.setItemLore(itemStack, false, ItemLoreView.of(player));
+			if (UserData.SHOW_ITEM_LORE.getBoolean(player))
+			{
+				ItemLore.setItemLore(itemStack, false, ItemLoreView.of(player));
+			}
 			ItemMeta itemMeta = itemStack.getItemMeta();
 			List<Component> lore = itemMeta.lore();
 			if (lore == null)
