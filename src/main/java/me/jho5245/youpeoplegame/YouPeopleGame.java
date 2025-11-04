@@ -60,7 +60,6 @@ public class YouPeopleGame extends JavaPlugin
 		pluginVersion = pluginMeta.getVersion();
 		pluginManager = Bukkit.getPluginManager();
 		services = new ArrayList<>();
-		CustomMaterialYouPeopleGame.getInstance().unregisterCustomMaterial();
 		CustomMaterialYouPeopleGame.getInstance().registerCustomMaterial();
 		registerCommands();
 		registerEvents();
