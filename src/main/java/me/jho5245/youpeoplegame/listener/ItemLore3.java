@@ -350,7 +350,7 @@ public class ItemLore3 implements Listener
 	{
 		if (player != null && player.getName().equals("jho5245") && customMaterial != null)
 		{
-			lore.add(ComponentUtil.translate(customMaterial.toString().toLowerCase()));
+			lore.add(ComponentUtil.translate("&8" + customMaterial.toString().toLowerCase()));
 		}
 	}
 }
