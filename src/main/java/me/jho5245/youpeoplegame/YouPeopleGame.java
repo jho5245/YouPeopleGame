@@ -4,6 +4,7 @@ import com.jho5245.cucumbery.util.no_groups.CucumberyCommandExecutor;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import io.papermc.paper.plugin.configuration.PluginMeta;
 import me.jho5245.youpeoplegame.command.*;
+import me.jho5245.youpeoplegame.custommaterial.CustomMaterialYouPeopleGame;
 import me.jho5245.youpeoplegame.listener.*;
 import me.jho5245.youpeoplegame.listener.inventory.CraftItem;
 import me.jho5245.youpeoplegame.listener.inventory.InventoryClick;
@@ -59,6 +60,8 @@ public class YouPeopleGame extends JavaPlugin
 		pluginVersion = pluginMeta.getVersion();
 		pluginManager = Bukkit.getPluginManager();
 		services = new ArrayList<>();
+		CustomMaterialYouPeopleGame.getInstance().unregisterCustomMaterial();
+		CustomMaterialYouPeopleGame.getInstance().registerCustomMaterial();
 		registerCommands();
 		registerEvents();
 		registerService();
@@ -70,6 +73,7 @@ public class YouPeopleGame extends JavaPlugin
 			InventoryClick.class,
 			InventoryOpen.class,
 			ItemLore3.class,
+			ItemLoreCustomMaterial.class,
 			OpenWindowMerchant.class,
 			PlayerCustomMiningItemDamage.class,
 			PlayerInteract.class,
@@ -128,6 +132,7 @@ public class YouPeopleGame extends JavaPlugin
 	@Override
 	public void onDisable()
 	{
+		CustomMaterialYouPeopleGame.getInstance().unregisterCustomMaterial();
 		MessageUtil.consoleSendMessage("%s v.%s has been disabled!", pluginName, pluginVersion);
 	}
 }

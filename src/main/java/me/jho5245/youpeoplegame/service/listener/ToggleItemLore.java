@@ -1,6 +1,6 @@
 package me.jho5245.youpeoplegame.service.listener;
 
-import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
+import com.jho5245.cucumbery.custom.custommaterial.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
 import me.jho5245.youpeoplegame.YouPeopleGame;

@@ -5,11 +5,12 @@ import com.jho5245.cucumbery.util.gui.GUIManager;
 import com.jho5245.cucumbery.util.no_groups.CucumberyCommandExecutor;
 import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
 import com.jho5245.cucumbery.util.storage.data.Constant;
-import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
+import com.jho5245.cucumbery.custom.custommaterial.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.no_groups.CreateItemStack;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
 import me.jho5245.youpeoplegame.YouPeopleGame;
+import me.jho5245.youpeoplegame.custommaterial.CustomMaterialYouPeopleGame;
 import me.jho5245.youpeoplegame.util.YouPeopleGameUserData;
 import me.jho5245.youpeoplegame.service.scheduler.CookieGiveawayEveryNSeconds;
 import net.kyori.adventure.text.Component;
@@ -73,7 +74,7 @@ public class GUICommand implements CucumberyCommandExecutor
 		if (UserData.getBoolean(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_UNLOCKED))
 		{
 			inventory.setItem(0, CreateItemStack.toggleItem(UserData.getBoolean(player, YouPeopleGameUserData.DAMP_COOKIE_POTION_USE),
-					ComponentUtil.translate("%s 해금 기능 사용", CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE_POTION),
+					ComponentUtil.translate("%s 해금 기능 사용", CustomMaterialYouPeopleGame.DAMP_COOKIE_POTION),
 					Collections.singletonList(ComponentUtil.translate("&725% 확률로 추가 쿠키 획득")),
 					TURN_OFF,
 					TURN_ON));
@@ -85,7 +86,7 @@ public class GUICommand implements CucumberyCommandExecutor
 		if (UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_UNLOCKED))
 		{
 			inventory.setItem(1, CreateItemStack.toggleItem(UserData.getBoolean(player, YouPeopleGameUserData.MOIST_COOKIE_BOOSTER_USE),
-					ComponentUtil.translate("%s 해금 기능 사용", CustomMaterial.YOUPEOPLEGAME_MOIST_COOKIE_BOOSTER),
+					ComponentUtil.translate("%s 해금 기능 사용", CustomMaterialYouPeopleGame.MOIST_COOKIE_BOOSTER),
 					List.of(
 							waitTickLore,
 							Component.empty(),
@@ -101,7 +102,7 @@ public class GUICommand implements CucumberyCommandExecutor
 		if (UserData.getBoolean(player, YouPeopleGameUserData.SUPER_MOIST_COOKIE_BOOSTER_UNLOCKED))
 		{
 			inventory.setItem(2, CreateItemStack.toggleItem(UserData.getBoolean(player, YouPeopleGameUserData.SUPER_MOIST_COOKIE_BOOSTER_USE),
-					ComponentUtil.translate("%s 해금 기능 사용", CustomMaterial.YOUPEOPLEGAME_SUPER_MOIST_COOKIE_BOOSTER),
+					ComponentUtil.translate("%s 해금 기능 사용", CustomMaterialYouPeopleGame.SUPER_MOIST_COOKIE_BOOSTER),
 					List.of(
 							waitTickLore,
 							Component.empty(),

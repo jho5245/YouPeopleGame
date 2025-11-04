@@ -24,6 +24,6 @@ public class BuffCommand implements CucumberyCommandExecutor
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args)
 	{
 		CustomEffectGUI.openGUI(((Player) sender), true);
-		return false;
+		return true;
 	}
 }

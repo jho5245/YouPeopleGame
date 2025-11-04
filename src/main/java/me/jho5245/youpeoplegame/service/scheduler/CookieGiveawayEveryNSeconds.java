@@ -2,10 +2,10 @@ package me.jho5245.youpeoplegame.service.scheduler;
 
 import com.jho5245.cucumbery.util.additemmanager.AddItemUtil;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
-import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
 import me.jho5245.youpeoplegame.YouPeopleGame;
+import me.jho5245.youpeoplegame.custommaterial.CustomMaterialYouPeopleGame;
 import me.jho5245.youpeoplegame.util.YouPeopleGameUserData;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,7 +32,7 @@ public class CookieGiveawayEveryNSeconds extends SchedulerService
 
 	public CookieGiveawayEveryNSeconds()
 	{
-		cookie = CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE.create();
+		cookie = CustomMaterialYouPeopleGame.DAMP_COOKIE.create();
 		filter = player ->
 		{
 			Location location = player.getLocation();

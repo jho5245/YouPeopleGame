@@ -1,8 +1,9 @@
 package me.jho5245.youpeoplegame.service.listener;
 
+import com.jho5245.cucumbery.custom.custommaterial.CustomMaterial;
 import com.jho5245.cucumbery.util.additemmanager.AddItemUtil;
-import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
+import me.jho5245.youpeoplegame.custommaterial.CustomMaterialYouPeopleGame;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,8 +15,6 @@ import org.bukkit.inventory.PlayerInventory;
 
 import java.util.*;
 
-import static com.jho5245.cucumbery.util.storage.data.CustomMaterial.*;
-
 public class CondenseItem
 {
 	private final Map<Object, CondenseMap> CONDENSE_MAP;
@@ -25,36 +24,36 @@ public class CondenseItem
 	private CondenseItem()
 	{
 		CONDENSE_MAP = new HashMap<>();
-		CONDENSE_MAP.put(YOUPEOPLEGAME_DAMP_COOKIE_PILE, new CondenseMap(YOUPEOPLEGAME_DAMP_COOKIE));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_HARD_STONE, new CondenseMap(Material.COBBLESTONE));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_BURNING_FIRE, new CondenseMap(Material.COAL));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_COPPER_PILE, new CondenseMap(Material.RAW_COPPER));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_IRON_PILE, new CondenseMap(Material.RAW_IRON));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_GOLD_PILE, new CondenseMap(Material.RAW_GOLD));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_GENERATOR_MATERIAL, new CondenseMap(Material.REDSTONE));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_MAGIC_MATTER, new CondenseMap(Material.LAPIS_LAZULI));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_REFINED_QUARTZ, new CondenseMap(Material.QUARTZ));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_HARD_OAK_WOOD, new CondenseMap(Material.OAK_LOG));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_HARD_DARK_OAK_WOOD, new CondenseMap(Material.DARK_OAK_LOG));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_HIGH_QUALITY_STICK, new CondenseMap(Material.SPRUCE_LOG));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_HARD_ACACIA_WOOD, new CondenseMap(Material.ACACIA_LOG));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_HARD_JUNGLE_WOOD, new CondenseMap(Material.JUNGLE_LOG));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_HARD_BIRCH_WOOD, new CondenseMap(Material.BIRCH_LOG));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_HARD_PALE_OAK_WOOD, new CondenseMap(Material.PALE_OAK_LOG));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_HARD_CHERRY_WOOD, new CondenseMap(Material.CHERRY_LOG));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_HARD_MANGROVE_WOOD, new CondenseMap(Material.MANGROVE_LOG));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.DAMP_COOKIE_PILE, new CondenseMap(CustomMaterialYouPeopleGame.DAMP_COOKIE));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.HARD_STONE, new CondenseMap(Material.COBBLESTONE));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.BURNING_FIRE, new CondenseMap(Material.COAL));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.COPPER_PILE, new CondenseMap(Material.RAW_COPPER));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.IRON_PILE, new CondenseMap(Material.RAW_IRON));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.GOLD_PILE, new CondenseMap(Material.RAW_GOLD));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.GENERATOR_MATERIAL, new CondenseMap(Material.REDSTONE));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.MAGIC_MATTER, new CondenseMap(Material.LAPIS_LAZULI));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.REFINED_QUARTZ, new CondenseMap(Material.QUARTZ));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.HARD_OAK_WOOD, new CondenseMap(Material.OAK_LOG));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.HARD_DARK_OAK_WOOD, new CondenseMap(Material.DARK_OAK_LOG));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.HIGH_QUALITY_STICK, new CondenseMap(Material.SPRUCE_LOG));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.HARD_ACACIA_WOOD, new CondenseMap(Material.ACACIA_LOG));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.HARD_JUNGLE_WOOD, new CondenseMap(Material.JUNGLE_LOG));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.HARD_BIRCH_WOOD, new CondenseMap(Material.BIRCH_LOG));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.HARD_PALE_OAK_WOOD, new CondenseMap(Material.PALE_OAK_LOG));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.HARD_CHERRY_WOOD, new CondenseMap(Material.CHERRY_LOG));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.HARD_MANGROVE_WOOD, new CondenseMap(Material.MANGROVE_LOG));
 
-		CONDENSE_MAP.put(YOUPEOPLEGAME_DIRT_PILE, new CondenseMap(Material.DIRT));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_RED_SAND_PILE, new CondenseMap(Material.RED_SAND));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_MUD_PILE, new CondenseMap(Material.MUD));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_GRAVEL_PILE, new CondenseMap(Material.GRAVEL));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_CLAY_PILE, new CondenseMap(Material.CLAY));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_MOSS_PILE, new CondenseMap(Material.MOSS_BLOCK));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_PALE_MOSS_PILE, new CondenseMap(Material.PALE_MOSS_BLOCK));
-		CONDENSE_MAP.put(YOUPEOPLEGAME_SNOW_PILE, new CondenseMap(Material.SNOW_BLOCK));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.DIRT_PILE, new CondenseMap(Material.DIRT));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.RED_SAND_PILE, new CondenseMap(Material.RED_SAND));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.MUD_PILE, new CondenseMap(Material.MUD));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.GRAVEL_PILE, new CondenseMap(Material.GRAVEL));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.CLAY_PILE, new CondenseMap(Material.CLAY));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.MOSS_PILE, new CondenseMap(Material.MOSS_BLOCK));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.PALE_MOSS_PILE, new CondenseMap(Material.PALE_MOSS_BLOCK));
+		CONDENSE_MAP.put(CustomMaterialYouPeopleGame.SNOW_PILE, new CondenseMap(Material.SNOW_BLOCK));
 		CONDENSE_MAP.put(Material.GLASS_BOTTLE, new CondenseMap(List.of(
 				Pair.of(Material.SAND, 64),
-				Pair.of(YOUPEOPLEGAME_BURNING_FIRE, 1)
+				Pair.of(CustomMaterialYouPeopleGame.BURNING_FIRE, 1)
 		)));
 	}
 

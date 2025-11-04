@@ -4,10 +4,11 @@ import com.jho5245.cucumbery.util.additemmanager.AddItemUtil;
 import com.jho5245.cucumbery.util.no_groups.MessageUtil;
 import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
 import com.jho5245.cucumbery.util.storage.component.util.ItemNameUtil;
-import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
+import com.jho5245.cucumbery.custom.custommaterial.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.data.EnumHideable;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
 import com.jho5245.cucumbery.util.storage.no_groups.ItemStackUtil;
+import me.jho5245.youpeoplegame.custommaterial.CustomMaterialYouPeopleGame;
 import me.jho5245.youpeoplegame.util.SackManager.SackElement.Category;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -48,12 +49,12 @@ public class SackManager
 		AMEYTHST_SHARD(Material.AMETHYST_SHARD, Category.MINING),
 		ANCIENT_DEBRIS(Material.ANCIENT_DEBRIS, Category.MINING),
 
-		DAMP_COOKIE(CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE, Category.COOKIE),
-		DAMP_COOKIE_PILE(CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE_PILE, Category.COOKIE),
-		DAMP_COOKIE_EVEN(CustomMaterial.YOUPEOPLEGAME_DAMP_COOKIE_EVEN, Category.COOKIE),
-		CRISPY_COOKIE(CustomMaterial.YOUPEOPLEGAME_CRISPY_COOKIE, Category.COOKIE),
-		CRISPY_COOKIE_BOX(CustomMaterial.YOUPEOPLEGAME_CRISPY_COOKIE_BOX, Category.COOKIE),
-		MOIST_COOKIE(CustomMaterial.YOUPEOPLEGAME_MOIST_COOKIE, Category.COOKIE),
+		DAMP_COOKIE(CustomMaterialYouPeopleGame.DAMP_COOKIE, Category.COOKIE),
+		DAMP_COOKIE_PILE(CustomMaterialYouPeopleGame.DAMP_COOKIE_PILE, Category.COOKIE),
+		DAMP_COOKIE_EVEN(CustomMaterialYouPeopleGame.DAMP_COOKIE_EVEN, Category.COOKIE),
+		CRISPY_COOKIE(CustomMaterialYouPeopleGame.CRISPY_COOKIE, Category.COOKIE),
+		CRISPY_COOKIE_BOX(CustomMaterialYouPeopleGame.CRISPY_COOKIE_BOX, Category.COOKIE),
+		MOIST_COOKIE(CustomMaterialYouPeopleGame.MOIST_COOKIE, Category.COOKIE),
 
 		OAK_LOG(Material.OAK_LOG, Category.WOOD),
 		SPRUCE_LOG(Material.SPRUCE_LOG, Category.WOOD),
@@ -78,7 +79,7 @@ public class SackManager
 		PALE_MOSS_BLOCK(Material.PALE_MOSS_BLOCK, Category.DIRT),
 		SNOW_BLOCK(Material.SNOW_BLOCK, Category.DIRT),
 
-		MEDAL_OF_PARKOUR(CustomMaterial.YOUPEOPLEGAME_MEDAL_OF_PARKOUR, Category.CURRENCY),
+		MEDAL_OF_PARKOUR(CustomMaterialYouPeopleGame.MEDAL_OF_PARKOUR, Category.CURRENCY),
 		;
 
 		private final ItemStack element;
@@ -220,15 +221,17 @@ public class SackManager
 
 			public static Category getByCustomMaterial(CustomMaterial customMaterial)
 			{
-				return switch (customMaterial)
-				{
-					case YOUPEOPLEGAME_SACK_EXPANDER_MINING -> Category.MINING;
-					case YOUPEOPLEGAME_SACK_EXPANDER_COOKIE -> Category.COOKIE;
-					case YOUPEOPLEGAME_SACK_EXPANDER_WOOD -> Category.WOOD;
-					case YOUPEOPLEGAME_SACK_EXPANDER_DIRT -> Category.DIRT;
-					case YOUPEOPLEGAME_SACK_EXPANDER_CURRENCY -> Category.CURRENCY;
-					case null, default -> null;
-				};
+				if (customMaterial == CustomMaterialYouPeopleGame.SACK_EXPANDER_MINING)
+					return Category.MINING;
+				if (customMaterial == CustomMaterialYouPeopleGame.SACK_EXPANDER_COOKIE)
+					return Category.COOKIE;
+				if (customMaterial == CustomMaterialYouPeopleGame.SACK_EXPANDER_WOOD)
+					return Category.WOOD;
+				if (customMaterial == CustomMaterialYouPeopleGame.SACK_EXPANDER_DIRT)
+					return Category.DIRT;
+				if (customMaterial == CustomMaterialYouPeopleGame.SACK_EXPANDER_CURRENCY)
+					return Category.CURRENCY;
+				return null;
 			}
 
 			@Override
@@ -245,7 +248,7 @@ public class SackManager
 					case MINING -> Material.DIAMOND;
 					case COOKIE -> Material.COOKIE;
 					case WOOD -> Material.OAK_WOOD;
-					case DIRT ->  Material.DIRT;
+					case DIRT -> Material.DIRT;
 					case CURRENCY -> Material.MUSIC_DISC_13;
 					default -> Material.STONE;
 				};
@@ -300,7 +303,7 @@ public class SackManager
 
 	public void setMaxAmount(Player player, SackElement element, int amount)
 	{
-		UserData.set(player, getPath(element) +  ".max-amount", amount);
+		UserData.set(player, getPath(element) + ".max-amount", amount);
 	}
 
 	public boolean addItem(Player player, SackElement element, int itemStackAmount)
@@ -409,7 +412,8 @@ public class SackManager
 					default -> -1;
 				};
 			}
-			case COBBLESTONE, OAK_LOG, DIRT -> {
+			case COBBLESTONE, OAK_LOG, DIRT ->
+			{
 				return switch (categoryUnlockCount)
 				{
 					case 0 -> 640;
@@ -421,7 +425,8 @@ public class SackManager
 					default -> -1;
 				};
 			}
-			case COAL, SPRUCE_LOG, SAND -> {
+			case COAL, SPRUCE_LOG, SAND ->
+			{
 				return switch (categoryUnlockCount)
 				{
 					case 0 -> 480;
@@ -433,7 +438,8 @@ public class SackManager
 					default -> -1;
 				};
 			}
-			case RAW_COPPER, REDSTONE, LAPIS_LAZULI -> {
+			case RAW_COPPER, REDSTONE, LAPIS_LAZULI ->
+			{
 				return switch (categoryUnlockCount)
 				{
 					case 0 -> 320;
@@ -445,7 +451,8 @@ public class SackManager
 					default -> -1;
 				};
 			}
-			case RAW_IRON, DARK_OAK_LOG, RED_SAND -> {
+			case RAW_IRON, DARK_OAK_LOG, RED_SAND ->
+			{
 				return switch (categoryUnlockCount)
 				{
 					case 0 -> 240;
@@ -457,7 +464,8 @@ public class SackManager
 					default -> -1;
 				};
 			}
-			case RAW_GOLD, QUARTZ, ACACIA_LOG, JUNGLE_LOG, BIRCH_LOG, PALE_OAK_LOG, MUD, GRAVEL, CLAY -> {
+			case RAW_GOLD, QUARTZ, ACACIA_LOG, JUNGLE_LOG, BIRCH_LOG, PALE_OAK_LOG, MUD, GRAVEL, CLAY ->
+			{
 				return switch (categoryUnlockCount)
 				{
 					case 0 -> 160;
@@ -469,7 +477,8 @@ public class SackManager
 					default -> -1;
 				};
 			}
-			case DIAMOND -> {
+			case DIAMOND ->
+			{
 				return switch (categoryUnlockCount)
 				{
 					case 0 -> 32;
@@ -481,7 +490,8 @@ public class SackManager
 					default -> -1;
 				};
 			}
-			case EMERALD, CRIMSON_STEM, WARPED_STEM, SNOW_BLOCK -> {
+			case EMERALD, CRIMSON_STEM, WARPED_STEM, SNOW_BLOCK ->
+			{
 				return switch (categoryUnlockCount)
 				{
 					case 0 -> 16;
@@ -493,7 +503,8 @@ public class SackManager
 					default -> -1;
 				};
 			}
-			case AMEYTHST_SHARD, CHERRY_LOG, MANGROVE_LOG, MOSS_BLOCK, PALE_MOSS_BLOCK -> {
+			case AMEYTHST_SHARD, CHERRY_LOG, MANGROVE_LOG, MOSS_BLOCK, PALE_MOSS_BLOCK ->
+			{
 				return switch (categoryUnlockCount)
 				{
 					case 0 -> 64;
@@ -505,7 +516,8 @@ public class SackManager
 					default -> -1;
 				};
 			}
-			case ANCIENT_DEBRIS, BAMBOO_BLOCK -> {
+			case ANCIENT_DEBRIS, BAMBOO_BLOCK ->
+			{
 				return switch (categoryUnlockCount)
 				{
 					case 0 -> 2;

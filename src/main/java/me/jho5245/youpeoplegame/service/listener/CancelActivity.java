@@ -26,7 +26,7 @@ public class CancelActivity
 	}
 
 	private final Set<InventoryType> ALLOWED_INVENTORY_TYPES = new HashSet<>(
-			Arrays.asList(InventoryType.SHULKER_BOX, InventoryType.CHEST, InventoryType.CARTOGRAPHY, InventoryType.BARREL, InventoryType.MERCHANT));
+			Arrays.asList(InventoryType.SHULKER_BOX, InventoryType.CHEST, InventoryType.CARTOGRAPHY, InventoryType.BARREL, InventoryType.MERCHANT, InventoryType.PLAYER));
 
 	public void cancelActivity(Player player, Cancellable cancellable)
 	{

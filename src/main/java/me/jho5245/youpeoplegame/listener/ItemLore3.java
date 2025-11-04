@@ -1,11 +1,12 @@
 package me.jho5245.youpeoplegame.listener;
 
+import com.jho5245.cucumbery.custom.custommaterial.CustomMaterial;
 import com.jho5245.cucumbery.events.itemlore.ItemLore3Event;
 import com.jho5245.cucumbery.util.storage.component.util.ComponentUtil;
 import com.jho5245.cucumbery.util.storage.component.util.ItemNameUtil;
 import com.jho5245.cucumbery.util.storage.data.Constant;
-import com.jho5245.cucumbery.util.storage.data.CustomMaterial;
 import com.jho5245.cucumbery.util.storage.no_groups.CustomConfig.UserData;
+import me.jho5245.youpeoplegame.custommaterial.CustomMaterialYouPeopleGame;
 import me.jho5245.youpeoplegame.service.listener.CondenseItem;
 import me.jho5245.youpeoplegame.service.listener.CondenseItem.CondenseMap;
 import me.jho5245.youpeoplegame.service.scheduler.CookieGiveawayEveryNSeconds;
@@ -40,174 +41,174 @@ public class ItemLore3 implements Listener
 		List<Component> lore = event.getItemLore();
 
 		CustomMaterial customMaterial = CustomMaterial.itemStackOf(itemStack);
-		switch (customMaterial)
+		if (customMaterial == CustomMaterialYouPeopleGame.DAMP_COOKIE)
 		{
-			case YOUPEOPLEGAME_DAMP_COOKIE ->
-			{
-				int waitTick = player != null ? CookieGiveawayEveryNSeconds.getWaitTick(player) : 100;
-				lore.add(ComponentUtil.translate("&7%s초를 기다려 얻은 쿠키다.", Constant.Sosu2.format(waitTick / 20d)));
-				lore.add(ComponentUtil.translate("&7어딘가 좀 눅눅하다."));
-			}
-			case YOUPEOPLEGAME_DAMP_COOKIE_PILE ->
-			{
-				lore.add(ComponentUtil.translate("&7뭉쳐서 이름이 굵어졌다."));
-			}
-			case YOUPEOPLEGAME_DAMP_COOKIE_EVEN ->
-			{
-				lore.add(ComponentUtil.translate("&7이젠 문쳐서 보기만 해도 목이 막힐 지경이다."));
-			}
-			case YOUPEOPLEGAME_CRISPY_COOKIE ->
-			{
-				lore.add(ComponentUtil.translate("&7눅눅한 쿠키를 익혀 바삭하게 만든 쿠키다."));
-			}
-			case YOUPEOPLEGAME_STARTER_SWORD, YOUPEOPLEGAME_STARTER_SHOVEL ->
-			{
-				lore.add(ComponentUtil.translate("&7뉴비에게 지급하는 %s이다.", customMaterial.translationKey()));
-			}
-			case YOUPEOPLEGAME_STARTER_AXE, YOUPEOPLEGAME_STARTER_PICKAXE ->
-			{
-				lore.add(ComponentUtil.translate("&7뉴비에게 지급하는 %s다.", customMaterial.translationKey()));
-			}
-			case YOUPEOPLEGAME_BURNING_FIRE ->
-			{
-				lore.add(ComponentUtil.translate("&7다용도로 필요해질 것 같은 불이다."));
-			}
-			case YOUPEOPLEGAME_CRISPY_COOKIE_PICKAXE ->
-			{
-				lore.add(ComponentUtil.translate("&7key:item.youpeoplegame.crispy_cookie_pickaxe.description|바삭한 쿠키로 만든 곡괭이다."));
-			}
-			case YOUPEOPLEGAME_CRISPY_COOKIE_AXE ->
-			{
-				lore.add(ComponentUtil.translate("&7바삭한 쿠키로 만든 도끼다."));
-			}
-			case YOUPEOPLEGAME_CRISPY_COOKIE_SHOVEL ->
-			{
-				lore.add(ComponentUtil.translate("&7바삭한 쿠키로 만든 삽이다."));
-			}
-			case YOUPEOPLEGAME_CRISPY_COOKIE_SWORD ->
-			{
-				lore.add(ComponentUtil.translate("&7바삭한 쿠키로 만든 검이다."));
-			}
-			case YOUPEOPLEGAME_CRISPY_COOKIE_BOX ->
-			{
-				lore.add(ComponentUtil.translate("&7바삭한 쿠키가 1셋트 들어있는 박스다."));
-			}
-			case YOUPEOPLEGAME_MOIST_COOKIE ->
-			{
-				lore.add(ComponentUtil.translate("&7눅눅함과 바삭함이 만나 촉촉한 쿠키가 되었다!"));
-			}
-			case YOUPEOPLEGAME_DAMP_COOKIE_POTION ->
-			{
-				lore.add(ComponentUtil.translate("&7더욱 눅눅한 쿠키를 액화하여 만든 이상한 포션이다."));
-				lore.add(ComponentUtil.translate("&7사용시 잠수자리에서 영구적으로 25%확률로 쿠키를 하나 더 얻을 수 있다."));
-				lore.add(ComponentUtil.translate("&7단, 딱 한 번만 사용할 수 있다."));
-				lore.add(ComponentUtil.translate("&7한 번 사용하면 사라진다."));
-			}
-			case YOUPEOPLEGAME_MOIST_COOKIE_BOOSTER ->
-			{
-				lore.add(ComponentUtil.translate("&7촉촉한 쿠키를 액화하여 만든 이상한 촉진제다."));
-				lore.add(ComponentUtil.translate("&7사용 시 잠수자리에서 영구적으로 1초를 줄여 더 빠르게 쿠키를 얻을 수 있다."));
-				lore.add(ComponentUtil.translate("&7단, 딱 한 번만 사용할 수 있다."));
-				lore.add(ComponentUtil.translate("&7한 번 사용하면 사라진다."));
-			}
-			case YOUPEOPLEGAME_HARD_STONE ->
-			{
-				lore.add(ComponentUtil.translate("&7조약돌을 압축시켜 단단하게 만든 돌이다."));
-			}
-			case YOUPEOPLEGAME_IRON_PILE ->
-			{
-				lore.add(ComponentUtil.translate("&7철 원석을 뭉친 철뭉치다."));
-			}
-			case YOUPEOPLEGAME_GOLD_PILE ->
-			{
-				lore.add(ComponentUtil.translate("&7금 원석을 뭉친 금뭉치다."));
-			}
-			case YOUPEOPLEGAME_COPPER_PILE ->
-			{
-				lore.add(ComponentUtil.translate("&7구리 원석을 뭉친 구리뭉치다."));
-			}
-			case YOUPEOPLEGAME_GENERATOR_MATERIAL ->
-			{
-				lore.add(ComponentUtil.translate("&7기계에 사용되는 발전물체이다."));
-			}
-			case YOUPEOPLEGAME_MAGIC_MATTER ->
-			{
-				lore.add(ComponentUtil.translate("&7신비한 마력을 지닌 마력물질이다."));
-			}
-			case YOUPEOPLEGAME_REFINED_QUARTZ ->
-			{
-				lore.add(ComponentUtil.translate("&7석영을 가공하여 만들었다."));
-			}
-			case YOUPEOPLEGAME_SUPER_MOIST_COOKIE_BOOSTER ->
-			{
-				lore.add(ComponentUtil.translate("&7눅눅한 쿠키 포션을 촉촉한 쿠키로 고농축화하여 만들어진 퓨전 포션이다."));
-				lore.add(ComponentUtil.translate("&7사용 시 잠수자리에서 영구적으로 1.25초를 줄여 더 빠르게 쿠키를 얻을 수 있으며,"));
-				lore.add(ComponentUtil.translate("&750% 확률로 쿠키를 하나 더 얻을 수 있다."));
-				lore.add(ComponentUtil.translate("&7단, 딱 한 번만 사용할 수 있다."));
-				lore.add(ComponentUtil.translate("&7한 번 사용하면 사라진다."));
-			}
-			case YOUPEOPLEGAME_REFINED_HARD_STONE ->
-			{
-				lore.add(ComponentUtil.translate("&7단단한 돌을 구워 만들어진 돌이다."));
-			}
-			case YOUPEOPLEGAME_REFINED_IRON ->
-			{
-				lore.add(ComponentUtil.translate("&7철뭉치 구워 만들어진 철이다."));
-			}
-			case YOUPEOPLEGAME_REFINED_GOLD ->
-			{
-				lore.add(ComponentUtil.translate("&7금뭉치 구워 만들어진 금이다."));
-			}
-			case YOUPEOPLEGAME_REFINED_COPPER ->
-			{
-				lore.add(ComponentUtil.translate("&7구리뭉치 구워 만들어진 구리다."));
-			}
-			case YOUPEOPLEGAME_REFINED_DIAMOND, YOUPEOPLEGAME_REFINED_EMERALD, YOUPEOPLEGAME_REFINED_AMETHYST ->
-			{
-				lore.add(ComponentUtil.translate("&7%1$s을(를) 구워 만들어 강력해진 %1$s이다.", Component.translatable(customMaterial.translationKey())));
-			}
-			case YOUPEOPLEGAME_HARD_OAK_WOOD, YOUPEOPLEGAME_HARD_DARK_OAK_WOOD, YOUPEOPLEGAME_HARD_ACACIA_WOOD, YOUPEOPLEGAME_HARD_JUNGLE_WOOD,
-					 YOUPEOPLEGAME_HARD_BIRCH_WOOD, YOUPEOPLEGAME_HARD_PALE_OAK_WOOD, YOUPEOPLEGAME_HARD_CHERRY_WOOD, YOUPEOPLEGAME_HARD_MANGROVE_WOOD ->
-			{
-				lore.add(ComponentUtil.translate("&7%s을(를) 압축하여 단단하게 만들었다.", Component.translatable(customMaterial.getDisplayMaterial().translationKey())));
-			}
-			case YOUPEOPLEGAME_HIGH_QUALITY_STICK ->
-			{
-				lore.add(ComponentUtil.translate("&7엄선된 나무로만 가공되어 만들어진 막대기이다."));
-				lore.add(ComponentUtil.translate("&7주로 도구의 손잡이로 사용된다."));
-			}
-			case YOUPEOPLEGAME_MEDAL_OF_PARKOUR ->
-			{
-				lore.add(ComponentUtil.translate("&7점프맵을 클리어 하여 얻은 메달이다."));
-				lore.add(ComponentUtil.translate("&7다양한 아이템들과 교환할 수 있다."));
-			}
-			case YOUPEOPLEGAME_REFINED_ANCIENT_ORE ->
-			{
-				lore.add(ComponentUtil.translate("&7정체불명의 광물을 오랫동안 구워서 가공하였다."));
-			}
-			case YOUPEOPLEGAME_CORRUPTED_MATTER ->
-			{
-				lore.add(ComponentUtil.translate("&7진홍빛 자루에서 추출하여 가져온 오염물질이다."));
-			}
-			case YOUPEOPLEGAME_CHAOS_MATTER ->
-			{
-				lore.add(ComponentUtil.translate("&7뒤틀린 자루에서 추출하여 가져온 혼돈물질이다."));
-			}
-			case YOUPEOPLEGAME_SPIRIT_MATTER ->
-			{
-				lore.add(ComponentUtil.translate("&7숨어있는 정령을 마력으로 끌어들여 얻은 물질이다."));
-			}
-			case YOUPEOPLEGAME_DIRT_PILE, YOUPEOPLEGAME_MUD_PILE, YOUPEOPLEGAME_GRAVEL_PILE, YOUPEOPLEGAME_SNOW_PILE ->
-			{
-				lore.add(ComponentUtil.translate("&7%s이다.", customMaterial.getDisplayName().color(null)));
-			}
-			case YOUPEOPLEGAME_RED_SAND_PILE, YOUPEOPLEGAME_CLAY_PILE, YOUPEOPLEGAME_MOSS_PILE, YOUPEOPLEGAME_PALE_MOSS_PILE ->
-			{
-				lore.add(ComponentUtil.translate("&7%s다.", customMaterial.getDisplayName().color(null)));
-			}
-			case null, default ->
-			{
-			}
+			int waitTick = player != null ? CookieGiveawayEveryNSeconds.getWaitTick(player) : 100;
+			lore.add(ComponentUtil.translate("&7%s초를 기다려 얻은 쿠키다.", Constant.Sosu2.format(waitTick / 20d)));
+			lore.add(ComponentUtil.translate("&7어딘가 좀 눅눅하다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.DAMP_COOKIE_PILE)
+		{
+			lore.add(ComponentUtil.translate("&7뭉쳐서 이름이 굵어졌다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.DAMP_COOKIE_EVEN)
+		{
+			lore.add(ComponentUtil.translate("&7이젠 문쳐서 보기만 해도 목이 막힐 지경이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.CRISPY_COOKIE)
+		{
+			lore.add(ComponentUtil.translate("&7눅눅한 쿠키를 익혀 바삭하게 만든 쿠키다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.STARTER_SWORD || customMaterial == CustomMaterialYouPeopleGame.STARTER_SHOVEL)
+		{
+			lore.add(ComponentUtil.translate("&7뉴비에게 지급하는 %s이다.", customMaterial.translationKey()));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.STARTER_AXE || customMaterial == CustomMaterialYouPeopleGame.STARTER_PICKAXE)
+		{
+			lore.add(ComponentUtil.translate("&7뉴비에게 지급하는 %s다.", customMaterial.translationKey()));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.BURNING_FIRE)
+		{
+			lore.add(ComponentUtil.translate("&7다용도로 필요해질 것 같은 불이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.CRISPY_COOKIE_PICKAXE)
+		{
+			lore.add(ComponentUtil.translate("&7key:item.youpeoplegame.crispy_cookie_pickaxe.description|바삭한 쿠키로 만든 곡괭이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.CRISPY_COOKIE_AXE)
+		{
+			lore.add(ComponentUtil.translate("&7바삭한 쿠키로 만든 도끼다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.CRISPY_COOKIE_SHOVEL)
+		{
+			lore.add(ComponentUtil.translate("&7바삭한 쿠키로 만든 삽이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.CRISPY_COOKIE_SWORD)
+		{
+			lore.add(ComponentUtil.translate("&7바삭한 쿠키로 만든 검이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.CRISPY_COOKIE_BOX)
+		{
+			lore.add(ComponentUtil.translate("&7바삭한 쿠키가 1셋트 들어있는 박스다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.MOIST_COOKIE)
+		{
+			lore.add(ComponentUtil.translate("&7눅눅함과 바삭함이 만나 촉촉한 쿠키가 되었다!"));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.DAMP_COOKIE_POTION)
+		{
+			lore.add(ComponentUtil.translate("&7더욱 눅눅한 쿠키를 액화하여 만든 이상한 포션이다."));
+			lore.add(ComponentUtil.translate("&7사용시 잠수자리에서 영구적으로 25%확률로 쿠키를 하나 더 얻을 수 있다."));
+			lore.add(ComponentUtil.translate("&7단, 딱 한 번만 사용할 수 있다."));
+			lore.add(ComponentUtil.translate("&7한 번 사용하면 사라진다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.MOIST_COOKIE_BOOSTER)
+		{
+			lore.add(ComponentUtil.translate("&7촉촉한 쿠키를 액화하여 만든 이상한 촉진제다."));
+			lore.add(ComponentUtil.translate("&7사용 시 잠수자리에서 영구적으로 1초를 줄여 더 빠르게 쿠키를 얻을 수 있다."));
+			lore.add(ComponentUtil.translate("&7단, 딱 한 번만 사용할 수 있다."));
+			lore.add(ComponentUtil.translate("&7한 번 사용하면 사라진다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.HARD_STONE)
+		{
+			lore.add(ComponentUtil.translate("&7조약돌을 압축시켜 단단하게 만든 돌이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.IRON_PILE)
+		{
+			lore.add(ComponentUtil.translate("&7철 원석을 뭉친 철뭉치다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.GOLD_PILE)
+		{
+			lore.add(ComponentUtil.translate("&7금 원석을 뭉친 금뭉치다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.COPPER_PILE)
+		{
+			lore.add(ComponentUtil.translate("&7구리 원석을 뭉친 구리뭉치다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.GENERATOR_MATERIAL)
+		{
+			lore.add(ComponentUtil.translate("&7기계에 사용되는 발전물체이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.MAGIC_MATTER)
+		{
+			lore.add(ComponentUtil.translate("&7신비한 마력을 지닌 마력물질이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.REFINED_QUARTZ)
+		{
+			lore.add(ComponentUtil.translate("&7석영을 가공하여 만들었다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.SUPER_MOIST_COOKIE_BOOSTER)
+		{
+			lore.add(ComponentUtil.translate("&7눅눅한 쿠키 포션을 촉촉한 쿠키로 고농축화하여 만들어진 퓨전 포션이다."));
+			lore.add(ComponentUtil.translate("&7사용 시 잠수자리에서 영구적으로 1.25초를 줄여 더 빠르게 쿠키를 얻을 수 있으며,"));
+			lore.add(ComponentUtil.translate("&750% 확률로 쿠키를 하나 더 얻을 수 있다."));
+			lore.add(ComponentUtil.translate("&7단, 딱 한 번만 사용할 수 있다."));
+			lore.add(ComponentUtil.translate("&7한 번 사용하면 사라진다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.REFINED_HARD_STONE)
+		{
+			lore.add(ComponentUtil.translate("&7단단한 돌을 구워 만들어진 돌이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.REFINED_IRON)
+		{
+			lore.add(ComponentUtil.translate("&7철뭉치 구워 만들어진 철이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.REFINED_GOLD)
+		{
+			lore.add(ComponentUtil.translate("&7금뭉치 구워 만들어진 금이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.REFINED_COPPER)
+		{
+			lore.add(ComponentUtil.translate("&7구리뭉치 구워 만들어진 구리다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.REFINED_DIAMOND || customMaterial == CustomMaterialYouPeopleGame.REFINED_EMERALD
+				|| customMaterial == CustomMaterialYouPeopleGame.REFINED_AMETHYST)
+		{
+			lore.add(ComponentUtil.translate("&7%1$s을(를) 구워 만들어 강력해진 %1$s이다.", Component.translatable(customMaterial.translationKey())));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.HARD_OAK_WOOD || customMaterial == CustomMaterialYouPeopleGame.HARD_DARK_OAK_WOOD
+				|| customMaterial == CustomMaterialYouPeopleGame.HARD_ACACIA_WOOD || customMaterial == CustomMaterialYouPeopleGame.HARD_JUNGLE_WOOD
+				|| customMaterial == CustomMaterialYouPeopleGame.HARD_BIRCH_WOOD || customMaterial == CustomMaterialYouPeopleGame.HARD_PALE_OAK_WOOD
+				|| customMaterial == CustomMaterialYouPeopleGame.HARD_CHERRY_WOOD || customMaterial == CustomMaterialYouPeopleGame.HARD_MANGROVE_WOOD)
+		{
+			Material material = customMaterial.getDisplayMaterial() != null ? customMaterial.getDisplayMaterial() : customMaterial.getRealMaterial();
+			lore.add(ComponentUtil.translate("&7%s을(를) 압축하여 단단하게 만들었다.", Component.translatable(material.translationKey())));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.HIGH_QUALITY_STICK)
+		{
+			lore.add(ComponentUtil.translate("&7엄선된 나무로만 가공되어 만들어진 막대기이다."));
+			lore.add(ComponentUtil.translate("&7주로 도구의 손잡이로 사용된다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.MEDAL_OF_PARKOUR)
+		{
+			lore.add(ComponentUtil.translate("&7점프맵을 클리어 하여 얻은 메달이다."));
+			lore.add(ComponentUtil.translate("&7다양한 아이템들과 교환할 수 있다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.REFINED_ANCIENT_ORE)
+		{
+			lore.add(ComponentUtil.translate("&7정체불명의 광물을 오랫동안 구워서 가공하였다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.CORRUPTED_MATTER)
+		{
+			lore.add(ComponentUtil.translate("&7진홍빛 자루에서 추출하여 가져온 오염물질이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.CHAOS_MATTER)
+		{
+			lore.add(ComponentUtil.translate("&7뒤틀린 자루에서 추출하여 가져온 혼돈물질이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.SPIRIT_MATTER)
+		{
+			lore.add(ComponentUtil.translate("&7숨어있는 정령을 마력으로 끌어들여 얻은 물질이다."));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.DIRT_PILE || customMaterial == CustomMaterialYouPeopleGame.MUD_PILE
+				|| customMaterial == CustomMaterialYouPeopleGame.GRAVEL_PILE || customMaterial == CustomMaterialYouPeopleGame.SNOW_PILE)
+		{
+			lore.add(ComponentUtil.translate("&7%s이다.", customMaterial.getDisplayName().color(null)));
+		}
+		else if (customMaterial == CustomMaterialYouPeopleGame.RED_SAND_PILE || customMaterial == CustomMaterialYouPeopleGame.CLAY_PILE
+				|| customMaterial == CustomMaterialYouPeopleGame.MOSS_PILE || customMaterial == CustomMaterialYouPeopleGame.PALE_MOSS_PILE)
+		{
+			lore.add(ComponentUtil.translate("&7%s다.", customMaterial.getDisplayName().color(null)));
 		}
 		switch (itemStack.getType())
 		{

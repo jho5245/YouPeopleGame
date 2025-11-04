@@ -79,6 +79,7 @@ public class ParkourGiveUp implements CucumberyCommandExecutor
 			}
 			MessageUtil.info(player, "포기했습니다람쥐썬더!!!!!!");
 			player.getScoreboardTags().remove("playing_parkour");
+			player.getScoreboardTags().remove("playing_goori_parkour");
 		}
 		return false;
 	}
