@@ -61,11 +61,11 @@ public class ItemLore3 implements Listener
 		}
 		else if (customMaterial == CustomMaterialYouPeopleGame.STARTER_SWORD || customMaterial == CustomMaterialYouPeopleGame.STARTER_SHOVEL)
 		{
-			lore.add(ComponentUtil.translate("&7뉴비에게 지급하는 %s이다.", customMaterial.translationKey()));
+			lore.add(ComponentUtil.translate("&7뉴비에게 지급하는 %s이다.", customMaterial.getDisplayName()));
 		}
 		else if (customMaterial == CustomMaterialYouPeopleGame.STARTER_AXE || customMaterial == CustomMaterialYouPeopleGame.STARTER_PICKAXE)
 		{
-			lore.add(ComponentUtil.translate("&7뉴비에게 지급하는 %s다.", customMaterial.translationKey()));
+			lore.add(ComponentUtil.translate("&7뉴비에게 지급하는 %s다.", customMaterial.getDisplayName()));
 		}
 		else if (customMaterial == CustomMaterialYouPeopleGame.BURNING_FIRE)
 		{
@@ -164,7 +164,8 @@ public class ItemLore3 implements Listener
 		else if (customMaterial == CustomMaterialYouPeopleGame.REFINED_DIAMOND || customMaterial == CustomMaterialYouPeopleGame.REFINED_EMERALD
 				|| customMaterial == CustomMaterialYouPeopleGame.REFINED_AMETHYST)
 		{
-			lore.add(ComponentUtil.translate("&7%1$s을(를) 구워 만들어 강력해진 %1$s이다.", Component.translatable(customMaterial.translationKey())));
+			Material material = customMaterial.getDisplayMaterial() != null ? customMaterial.getDisplayMaterial() : customMaterial.getRealMaterial();
+			lore.add(ComponentUtil.translate("&7%1$s을(를) 구워 만들어 강력해진 %1$s이다.", Component.translatable(material.translationKey())));
 		}
 		else if (customMaterial == CustomMaterialYouPeopleGame.HARD_OAK_WOOD || customMaterial == CustomMaterialYouPeopleGame.HARD_DARK_OAK_WOOD
 				|| customMaterial == CustomMaterialYouPeopleGame.HARD_ACACIA_WOOD || customMaterial == CustomMaterialYouPeopleGame.HARD_JUNGLE_WOOD
