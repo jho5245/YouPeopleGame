@@ -255,7 +255,7 @@ public class SackManager
 				ItemStack itemStack = new ItemStack(Material.DEBUG_STICK);
 				ItemMeta itemMeta = itemStack.getItemMeta();
 				var dataComponent = itemMeta.getCustomModelDataComponent();
-				dataComponent.setStrings(List.of("youpeoplegame_gui_sack_category_" + this.name().toLowerCase()));
+				dataComponent.setStrings(List.of("youpeoplegame:gui_sack_category_" + this.name().toLowerCase()));
 				itemMeta.setCustomModelDataComponent(dataComponent);
 				itemMeta.setEnchantmentGlintOverride(false);
 				itemMeta.displayName(ComponentUtil.translate("&e%s 재료 가방", this.getName()));

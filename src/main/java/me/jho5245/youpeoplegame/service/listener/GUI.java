@@ -241,7 +241,7 @@ public class GUI
 		getAllMeta.setEnchantmentGlintOverride(false);
 		getAllMeta.setItemModel(Material.HOPPER.getKey());
 		CustomModelDataComponent getAllData = getAllMeta.getCustomModelDataComponent();
-		getAllData.setStrings(List.of("youpeoplegame_gui_sack_get_all"));
+		getAllData.setStrings(List.of("youpeoplegame:gui_sack_get_all"));
 		getAllMeta.setCustomModelDataComponent(getAllData);
 		getAllMeta.displayName(ComponentUtil.translate("&e전부 꺼내기"));
 		getAllMeta.lore(List.of(ComponentUtil.translate("&7아이템을 전부 꺼냅니다."), ComponentUtil.translate("&7인벤토리가 가득 찬 경우 꺼낼 수 없습니다.")));
@@ -254,7 +254,7 @@ public class GUI
 		putAllMeta.setEnchantmentGlintOverride(false);
 		putAllMeta.setItemModel(Material.CHEST.getKey());
 		CustomModelDataComponent putAllData = putAllMeta.getCustomModelDataComponent();
-		putAllData.setStrings(List.of("youpeoplegame_gui_sack_put_all"));
+		putAllData.setStrings(List.of("youpeoplegame:gui_sack_put_all"));
 		putAllMeta.setCustomModelDataComponent(putAllData);
 		putAllMeta.displayName(ComponentUtil.translate("&e전부 넣기"));
 		putAllMeta.lore(List.of(ComponentUtil.translate("&7가지고 있는 아이템을"), ComponentUtil.translate("&7전부 재료 가방에 넣습니다.")));
@@ -267,7 +267,7 @@ public class GUI
 		itemMeta.setEnchantmentGlintOverride(false);
 		itemMeta.setItemModel(Material.ARROW.getKey());
 		CustomModelDataComponent dataComponent = itemMeta.getCustomModelDataComponent();
-		dataComponent.setStrings(List.of("youpeoplegame_gui_sack_back_to_menu"));
+		dataComponent.setStrings(List.of("youpeoplegame:gui_sack_back_to_menu"));
 		itemMeta.setCustomModelDataComponent(dataComponent);
 		itemMeta.displayName(ComponentUtil.translate("&b처음 화면으로"));
 		itemMeta.lore(List.of(ComponentUtil.translate("&7재료 가방 목록으로 돌아갑니다.")));
