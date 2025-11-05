@@ -75,14 +75,23 @@ public class ItemLoreModifier
 					{
 						if (customMaterial == CustomMaterialYouPeopleGame.SPECIAL_TOOL)
 						{
-							itemMeta.setItemModel(Material.STICK.getKey());
 							String specialToolString = UserData.getString(player, YouPeopleGameUserData.SPECIAL_TOOL);
 							List<Component> lore = new ArrayList<>();
-							if (specialToolString == null)
+							switch (specialToolString)
 							{
-								itemMeta.itemName(ComponentUtil.translate("&7낡은 막대기"));
-								lore.add(ComponentUtil.translate("&7평범한 낡은 막대기다. 캐릭터의 성장 방향에 따라"));
-								lore.add(ComponentUtil.translate("&7강력한 도구로 바뀔 수도 있을 것 같다."));
+								case "foo" -> {
+									itemMeta.setItemModel(Material.EMERALD.getKey());
+									itemMeta.itemName(ComponentUtil.translate("&7빛바랜 에메랄등"));
+									lore.add(ComponentUtil.translate("&7에메랄드인데 빛이 나지 않는다."));
+									lore.add(ComponentUtil.translate("&7그래도 꽤나 날카로워 보인다."));
+								}
+								case null -> {
+									itemMeta.setItemModel(Material.STICK.getKey());
+									itemMeta.itemName(ComponentUtil.translate("&7낡은 막대기"));
+									lore.add(ComponentUtil.translate("&7평범한 낡은 막대기다. 캐릭터의 성장 방향에 따라"));
+									lore.add(ComponentUtil.translate("&7강력한 도구로 바뀔 수도 있을 것 같다."));
+								}
+								default -> {}
 							}
 							if (!lore.isEmpty())
 							{

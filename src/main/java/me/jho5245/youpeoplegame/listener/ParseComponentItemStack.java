@@ -1,6 +1,7 @@
 package me.jho5245.youpeoplegame.listener;
 
 import com.jho5245.cucumbery.events.addon.protocollib.ParseComponentItemStackEvent;
+import com.jho5245.cucumbery.util.no_groups.ItemSerializer;
 import me.jho5245.youpeoplegame.util.ItemLoreModifier;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,7 +9,7 @@ import org.bukkit.event.Listener;
 public class ParseComponentItemStack implements Listener
 {
 	@EventHandler
-	public void onPlayerPickupItem(ParseComponentItemStackEvent event)
+	public void onParseComponentItemStack(ParseComponentItemStackEvent event)
 	{
 		event.setItemStack(ItemLoreModifier.getInstance().perform(event.getPlayer(), event.getItemStack()));
 	}
