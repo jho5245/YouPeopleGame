@@ -87,7 +87,7 @@ public class CustomMaterialYouPeopleGame
 	STARTER_SHOVEL = new CustomMaterial(of("starter_shovel"), Material.IRON_SHOVEL, null, Material.IRON_SHOVEL.translationKey(), "스타터"),
 	STARTER_SWORD = new CustomMaterial(of("starter_sword"), Material.IRON_SWORD, null, Material.IRON_SWORD.translationKey(), "스타터"),
 	SUPER_MOIST_COOKIE_BOOSTER = new CustomMaterial(of("super_moist_cookie_booster"), Material.HONEY_BOTTLE, "&6key:item.youpeoplegame.super_moist_cookie_booster|촉촉한 쿠키 포션", "포션"),
-	SPECIAL_TOOL = new CustomMaterial(of("special_tool"), Material.CLOCK, "key:item.youpeoplegame.special_tool|특별 도구(로딩중)", "key:itemGroup.youpeoplegame.special_tool|특별 도구"),
+	SPECIAL_TOOL = new CustomMaterial(of("special_tool"), Material.CLOCK, "key:item.youpeoplegame.special_tool|특별 도구", "key:itemGroup.youpeoplegame.special_tool|특별 도구"),
 	TEST_ITEM = new CustomMaterial(of("test_item"), Material.APPLE, "key:item.youpeoplegame.test_item|테스트 아이템 2", Rarity.RARE, "key:itemGroup.youpeoplegame_item_group|테스트 그룹");
 
 	public void registerCustomMaterial()
