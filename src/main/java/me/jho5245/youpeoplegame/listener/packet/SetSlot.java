@@ -10,6 +10,6 @@ public class SetSlot implements Listener
 	@EventHandler
 	public void onWindowItems(SetSlotEvent event)
 	{
-		event.setItemStack(ItemLoreModifier.getInstance().perform(event.getItemStack()));
+		event.setItemStack(ItemLoreModifier.getInstance().perform(event.getPlayer(), event.getItemStack()));
 	}
 }

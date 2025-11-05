@@ -16,6 +16,7 @@ public enum YouPeopleGameUserData
 	MINING_SPREAD("추가-채굴-블록-배율"),
 	HIDE_ITEM_LORE_3("추가-설명-숨김-여부"),
 	STAT_SPEED("스탯.이동속도"),
+	SPECIAL_TOOL("특수.도구"),
 	;
 
 	final String key;

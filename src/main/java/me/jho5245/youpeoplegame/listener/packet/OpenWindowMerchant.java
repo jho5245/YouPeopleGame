@@ -10,7 +10,7 @@ public class OpenWindowMerchant implements Listener
 	@EventHandler
 	public void onOpenWindowMerchant(OpenWindowMerchantEvent event)
 	{
-		event.setResult(ItemLoreModifier.getInstance().perform(event.getResult()));
-		event.setIngredients(ItemLoreModifier.getInstance().perform(event.getIngredients()));
+		event.setResult(ItemLoreModifier.getInstance().perform(event.getPlayer(), event.getResult()));
+		event.setIngredients(ItemLoreModifier.getInstance().perform(event.getPlayer(), event.getIngredients()));
 	}
 }

@@ -10,6 +10,6 @@ public class SetCursorItem implements Listener
 	@EventHandler
 	public void onWindowItems(SetCursorItemEvent event)
 	{
-		event.setItemStack(ItemLoreModifier.getInstance().perform(event.getItemStack()));
+		event.setItemStack(ItemLoreModifier.getInstance().perform(event.getPlayer(), event.getItemStack()));
 	}
 }

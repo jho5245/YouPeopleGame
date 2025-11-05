@@ -10,7 +10,7 @@ public class WindowItems implements Listener
 	@EventHandler
 	public void onWindowItems(WindowItemsEvent event)
 	{
-		event.setItemStack(ItemLoreModifier.getInstance().perform(event.getItemStack()));
-		event.setItemStacks(ItemLoreModifier.getInstance().perform(event.getItemStacks()));
+		event.setItemStack(ItemLoreModifier.getInstance().perform(event.getPlayer(), event.getItemStack()));
+		event.setItemStacks(ItemLoreModifier.getInstance().perform(event.getPlayer(), event.getItemStacks()));
 	}
 }
