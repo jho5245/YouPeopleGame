@@ -84,6 +84,7 @@ public class YouPeopleGame extends JavaPlugin
 			SetCursorItem.class,
 			SetSlot.class,
 			WindowItems.class,
+			ParseComponentItemStack.class,
 			PlayerDropItemActionbar.class,
 			PlayerPickupItemActionbar.class
 	));
