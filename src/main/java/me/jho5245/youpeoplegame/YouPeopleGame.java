@@ -10,10 +10,7 @@ import me.jho5245.youpeoplegame.listener.inventory.CraftItem;
 import me.jho5245.youpeoplegame.listener.inventory.InventoryClick;
 import me.jho5245.youpeoplegame.listener.inventory.InventoryOpen;
 import me.jho5245.youpeoplegame.listener.inventory.PrepareResult;
-import me.jho5245.youpeoplegame.listener.packet.OpenWindowMerchant;
-import me.jho5245.youpeoplegame.listener.packet.SetCursorItem;
-import me.jho5245.youpeoplegame.listener.packet.SetSlot;
-import me.jho5245.youpeoplegame.listener.packet.WindowItems;
+import me.jho5245.youpeoplegame.listener.packet.*;
 import me.jho5245.youpeoplegame.listener.player.*;
 import me.jho5245.youpeoplegame.service.SheepWool;
 import me.jho5245.youpeoplegame.service.scheduler.CookieGiveawayEveryNSeconds;
@@ -83,9 +80,12 @@ public class YouPeopleGame extends JavaPlugin
 			PlayerSwapHeldItem.class,
 			PlayerTelekinesisItem.class,
 			PrepareResult.class,
+			EntityMetaData.class,
 			SetCursorItem.class,
 			SetSlot.class,
-			WindowItems.class
+			WindowItems.class,
+			PlayerDropItemActionbar.class,
+			PlayerPickupItemActionbar.class
 	));
 
 	private void registerCommands()
