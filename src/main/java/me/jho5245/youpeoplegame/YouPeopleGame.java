@@ -65,11 +65,8 @@ public class YouPeopleGame extends JavaPlugin
 
 	private static final Set<Class<? extends Listener>> events = new HashSet<>(Arrays.asList(
 			CraftItem.class,
-			CustomBlockBreak.class,
 			InventoryClick.class,
 			InventoryOpen.class,
-			ItemLore3.class,
-			ItemLoreCustomMaterial.class,
 			OpenWindowMerchant.class,
 			PlayerCustomMiningItemDamage.class,
 			PlayerInteract.class,
@@ -80,6 +77,10 @@ public class YouPeopleGame extends JavaPlugin
 			PlayerSwapHeldItem.class,
 			PlayerTelekinesisItem.class,
 			PrepareResult.class,
+			CustomBlockBreak.class,
+			ItemLore3.class,
+			ItemLoreCustomMaterial.class,
+			EntityEquipment.class,
 			EntityMetaData.class,
 			SetCursorItem.class,
 			SetSlot.class,

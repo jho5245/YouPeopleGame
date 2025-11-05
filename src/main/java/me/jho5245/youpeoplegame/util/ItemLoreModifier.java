@@ -79,7 +79,7 @@ public class ItemLoreModifier
 							List<Component> lore = new ArrayList<>();
 							switch (specialToolString)
 							{
-								case "foo" -> {
+								case "1" -> {
 									itemMeta.setItemModel(Material.EMERALD.getKey());
 									itemMeta.itemName(ComponentUtil.translate("&7빛바랜 에메랄등"));
 									lore.add(ComponentUtil.translate("&7에메랄드인데 빛이 나지 않는다."));
